@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GameStore - Product Detail</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .detail-wrap { display:flex; gap:30px; padding:30px; flex-wrap:wrap; }
+    .detail-wrap img { width:300px; height:250px; object-fit:cover; background:#333; }
+    .detail-info h2 { margin-bottom:10px; }
+    .detail-info .price { color:#cc0000; font-size:1.5rem; margin:10px 0; }
+    .qty-wrap { display:flex; align-items:center; gap:10px; margin:15px 0; }
+    .qty-wrap input { width:60px; padding:6px; background:#222; border:1px solid #444; color:#fff; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">🎮 GameStore</a>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Our Products</a></li>
+    <li><a href="contact.html">About Us</a></li>
+  </ul>
+  <div class="nav-icons">
+    <a href="#">🔍</a>
+    <a href="cart.html">🛒 <span id="cart-count">0</span></a>
+    <a href="admin/login.html">👤</a>
+  </div>
+</nav>
+
+<div class="detail-wrap">
+  <img src="" alt="Product Image" id="product-img">
+  <div class="detail-info">
+    <h2 id="product-name">Product Name</h2>
+    <div class="price" id="product-price">$0.00</div>
+    <p id="product-desc">Product description will display here.</p>
+    <div class="qty-wrap">
+      <label>Qty:</label>
+      <input type="number" id="qty" value="1" min="1">
+    </div>
+    <button class="btn-primary" onclick="addToCart(1, 'Product', 499, '')">Add to Cart</button>
+    <a href="cart.html" class="btn-secondary" style="margin-left:10px;">View Cart</a>
+  </div>
+</div>
+
+<footer><p>&copy; 2025 GameStore. All rights reserved.</p></footer>
+<script src="assets/js/main.js"></script>
+<script>
+  // TODO: read ?id= from URL, fetch product from includes/get-product.php
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get('id');
+</script>
+</body>
+</html>

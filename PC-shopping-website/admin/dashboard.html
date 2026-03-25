@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Dashboard</title>
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>🎮 Admin</h2>
+  <ul>
+    <li><a href="dashboard.html" class="active">📦 Products</a></li>
+    <li><a href="add-product.html">➕ Add Product</a></li>
+    <li><a href="../index.html">🏠 View Site</a></li>
+    <li><a href="login.html">🚪 Logout</a></li>
+  </ul>
+</div>
+
+<div class="admin-content">
+  <h1>Manage Products</h1>
+  <div style="display:flex;gap:10px;margin-bottom:15px;">
+    <a href="add-product.html" style="background:#cc0000;color:#fff;padding:8px 16px;text-decoration:none;">+ Add Product</a>
+    <input type="text" id="search" placeholder="Search..." style="padding:8px;background:#222;border:1px solid #444;color:#fff;">
+    <button onclick="searchProducts()" style="background:#cc0000;color:#fff;border:none;padding:8px 14px;cursor:pointer;">Search</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Image</th><th>Name</th><th>Price</th><th>Category</th><th>Actions</th></tr>
+    </thead>
+    <tbody id="product-table">
+      <!-- TODO: fetch from includes/get-products.php and render rows -->
+      <tr><td colspan="6" style="color:#888;text-align:center;">No products yet.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  function searchProducts() {
+    const q = document.getElementById('search').value;
+    // TODO: fetch products filtered by q
+    console.log('Admin search:', q);
+  }
+</script>
+</body>
+</html>
