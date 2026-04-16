@@ -36,22 +36,17 @@ body {
 
 /* Header: logo*/
 .logo{
-    vertical-align: middle;
+  vertical-align:middle;
 }
 .logo p1 {
-  font-size: 10px;
-  font-weight: bold;
-  
-}
-.logo p2 {
-  font-size: 10px;
+  font-size: 30px;
   font-weight: bold;
   
 }
 
 .logo img {
-  width: 30px;
-  height: 30px;
+  width: 60px;
+  height: 60px;
 }
 
 /* Header: icons*/
@@ -61,7 +56,8 @@ body {
 }
 
 
-/* =========== Body =========== */.content {
+/* =========== Body =========== */
+.content {
   background-color: #F4F6F5; /* GRAY */
   min-height: 80vh;
   padding: 30px;
