@@ -40,7 +40,7 @@
     align-items: center;
     gap: 30px;
 }
-.navbar_right-side span{
+.navbar_right-side img{
     cursor: pointer;
 
 }
@@ -63,10 +63,16 @@
     margin: 0 15px;
     text-decoration: none;
     color: var(--color-font);
+    font-size: 25px;
 }
 
 .navbar_menu a:hover{
     text-decoration: underline;
+}
+#search{
+    width: 35px;
+    height: 35px;
+    margin:25px;
 }
 
 
@@ -78,10 +84,6 @@ main{
 }
 
 /* ===========begin of team member work =========== */
-    /* =========== Quinn =========== */
-    
-    /* =========== Quinn =========== */
-
 
     /* =========== Quinn =========== */
     
