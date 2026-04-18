@@ -95,7 +95,7 @@ footer {
 
 
 /* ================main itmes in page ==================== */
-/* GRID CONTAINER */
+/* Grid */
 .admin-dashboard {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -103,15 +103,13 @@ footer {
     gap: 20px;
 }
 
-/* Make chart span full width */
-/* Chart spans full width */
 .admin-chart {
     grid-column: span 2;
     height: 180px;
     cursor: default;
 }
 
-/* Cards / buttons */
+
 .admin-card {
     display: flex;
     align-items: center;
