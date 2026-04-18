@@ -267,7 +267,7 @@ hr{
     color: #555;
 }
 
-.product-price{
+.order-price{
     font-size: 24px;
     font-weight: bold;
     color: var(--color-font-dark);
@@ -328,7 +328,7 @@ hr{
 /* =========== FehaFikra =========== */
 
 /* =========== Abdulmohsin =========== */
-/* =========== Contact_Us Page =========== */
+/*Contact_Us Page*/
 .contact_content aside {
     float: right;
     width: 30%;
@@ -349,8 +349,31 @@ hr{
 /* =========== Footer =========== */
 footer{
     background-color: var(--color-navbar);
-    color: white;    
-    min-height: 20vh;
-    position: sticky;
+    color: white;
+    padding: 30px 20px;
+}
+
+.footer-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.footer-content a{
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.footer-content a:hover{
+    text-decoration: underline;
+}
+
+.footer-content p{
+    margin: 0;
+    font-size: 18px;
 }
 
