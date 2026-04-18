@@ -299,9 +299,17 @@ hr{
     
 /* =========== FehaFikra =========== */
 
-/* =========== FreePalastine =========== */
+/* =========== Abdulmohsin =========== */
+/* =========== Contact_Us Page =========== */
+.contact_content aside {
+    float: right;
+    width: 30%;
+}
+.contact_content aside img{
+    padding-right: 3%;
+}
 
-/* =========== FreePalastine =========== */
+/* =========== Abdulmohsin =========== */
 
 
     
