@@ -1,0 +1,44 @@
+/* about */
+.about_content{
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.about-header{
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.about-header h1{
+    font-size: 42px;
+    color: var(--color-font-dark);
+    margin-bottom: 10px;
+}
+
+.about-header p{
+    font-size: 20px;
+    color: #555;
+}
+
+.about-box{
+    background-color: #f2f2f2;
+    border: 2px solid var(--color-product-border);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.about-box h2{
+    font-size: 30px;
+    color: var(--color-font-dark);
+    margin-bottom: 15px;
+}
+
+.about-box p{
+    font-size: 18px;
+    color: #444;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
