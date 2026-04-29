@@ -1,0 +1,105 @@
+/* Confirmation page */
+.order-confirmation_content{
+    max-width: 80%;
+    margin: 3% auto;
+    padding: 3%;
+}
+
+.confirmation-box{
+    background-color: #dff5e8;
+    border: 0.12rem solid #4caf50;
+    border-radius: 1rem;
+    padding: 3%;
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.confirmation-box h1{
+    font-size: 2.5rem;
+    color: #2e7d32;
+    margin-bottom: 1.5%;
+}
+
+.confirmation-box p{
+    font-size: 1.25rem;
+    color: #222;
+}
+
+.order-section{
+    text-align: center;
+}
+
+.order-section h2{
+    font-size: 2rem;
+    color: #222;
+    margin-bottom: 3%;
+}
+
+.product-list{
+    width: 100%;
+}
+
+.product-item{
+    background-color: #f2f2f2;
+    border: 0.12rem solid #444;
+    border-radius: 0.75rem;
+    padding: 2%;
+    margin-bottom: 2%;
+    text-align: left;
+}
+
+.product-info{
+    display: inline-block;
+    width: 70%;
+    vertical-align: middle;
+}
+
+.product-image{
+    display: inline-block;
+    width: 6rem;
+    height: 6rem;
+    background-color: #d9d9d9;
+    border: 0.12rem dashed #666;
+    border-radius: 0.6rem;
+    text-align: center;
+    line-height: 6rem;
+    color: #555;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.product-details{
+    display: inline-block;
+    margin-left: 3%;
+    vertical-align: middle;
+}
+
+.product-details h3{
+    margin: 0 0 1% 0;
+    font-size: 1.5rem;
+    color: #222;
+}
+
+.product-details p{
+    margin: 0;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.order-price{
+    display: inline-block;
+    width: 25%;
+    text-align: right;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #222;
+    vertical-align: middle;
+}
+
+.order-total{
+    margin-top: 4%;
+    text-align: right;
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #222;
+}

@@ -3,7 +3,7 @@
     <meta charset ="UTF-8">
     <title> ChipShip store</title>
     <link rel="stylesheet" href="css_files/style.css">
-    <link rel="styleshee t" href="css_files/login.css">
+    <link rel="stylesheet" href="css_files/profile.css">
 
     <link rel="stylesheet" href="css_files/nav_style.css">
     <link rel="stylesheet" href="css_files/footer_style.css">
@@ -21,49 +21,65 @@
                 <p id = "storeName">ChipShip</p>
             </div>
 
-           
+            
+
         </div>
 
-        
+       
+
     </header>
 
     
     <main>
 
-        <div class = "login_content">
-            <div class="login_box">
+        <div class = "profile_content">
+            <div class="profile_box">
 
-    <h1>Welcome Back</h1>
-    <p class="login_subtext">Login to your Chip Chip account</p>
+    <h1>My Profile</h1>
+    <p class="profile_subtext">Manage your account details</p>
 
-    <form class="login_form">
+    <form class="profile_form">
 
+       
+        <div class="name_row">
+            <div class="input_group">
+                <label>First Name</label>
+                <input type="text" value="">
+            </div>
+
+            <div class="input_group">
+                <label>Last Name</label>
+                <input type="text" value="">
+            </div>
+        </div>
+
+      
         <div class="input_group">
             <label>Email</label>
-            <input type="email" placeholder="Enter your email" required>
+            <input type="email" value="">
         </div>
 
+      
         <div class="input_group">
-            <label>Password</label>
-            <input type="password" placeholder="Enter your password" required>
+            <label>Phone Number</label>
+            <input type="tel" value="">
         </div>
 
-        <div class="login_options">
-            <label class="remember_me">
-                <input type="checkbox">
-                Remember me
-            </label>
-
-            <a href="#" class="forgot_password">Forgot password?</a>
+        
+        <div class="input_group">
+            <label>Address</label>
+            <input type="text" value="">
         </div>
 
-        <button type="submit" class="login_btn">Login</button>
-
-        <p class="register_link">
-            Don’t have an account? <a href="register.html">Register</a>
-        </p>
+        <div class="profile_actions">
+            <button type="submit" class="edit_btn">Save Changes</button>
+            <button type="button" class="logout_btn">Logout</button>
+        </div>
 
     </form>
+
+</div>
+
 
 </div>
 
@@ -84,5 +100,4 @@
             <p>Copyright © 2026 Chip Chip Store</p>
         </div>
     </footer>
-
 </body>
