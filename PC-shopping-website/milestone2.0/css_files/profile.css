@@ -1,0 +1,115 @@
+.profile_content{
+    min-height: 70vh;
+    text-align: center;
+}
+
+.profile_content::before{
+    content: "";
+    display: inline-block;
+    height: 70vh;
+    vertical-align: middle;
+}
+
+.profile_box{
+    display: inline-block;
+    vertical-align: middle;
+    background-color: #f2f2f2;
+    padding: 2.5rem;
+    border-radius: 0.95rem;
+    border: 0.2rem solid var(--color-product-border);
+    width: 100%;
+    max-width: 32rem;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.profile_box h1{
+    font-size: 2.25rem;
+    color: var(--color-font-dark);
+    margin-bottom: 0.6rem;
+}
+
+.profile_subtext{
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 1.9rem;
+}
+
+.profile_form{
+    width: 100%;
+}
+
+.input_group{
+    text-align: left;
+    margin-bottom: 1.25rem;
+}
+
+.input_group label{
+    font-size: 1rem;
+    color: var(--color-font-dark);
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+.input_group input{
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 0.5rem;
+    border: 0.12rem solid #ccc;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.input_group input:focus{
+    border-color: var(--color-navbar);
+}
+
+.name_row{
+    width: 100%;
+}
+
+.name_row .input_group{
+    display: inline-block;
+    width: 47%;
+    margin-right: 2%;
+    vertical-align: top;
+}
+
+.edit_btn{
+    background-color: var(--color-navbar);
+    color: var(--color-font-light);
+    border: none;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    width: 47%;
+}
+
+.edit_btn:hover{
+    background-color: #14313a;
+}
+
+.logout_btn{
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    width: 47%;
+}
+
+.logout_btn:hover{
+    background-color: #b52b27;
+}
+
+.profile_actions{
+    margin-top: 0.6rem;
+    text-align: center;
+}
+
+.profile_actions button{
+    margin-right: 2%;
+}

@@ -1,0 +1,134 @@
+.login_content{
+    min-height: 70vh;
+    padding: 1.25rem;
+    text-align: center;
+}
+
+.login_content::before{
+    content: "";
+    display: inline-block;
+    height: 70vh;
+    vertical-align: middle;
+}
+
+.login_box{
+    display: inline-block;
+    vertical-align: middle;
+    background-color: #f2f2f2;
+    padding: 2.5rem;
+    border-radius: 0.95rem;
+    border: 0.2rem solid #444;
+    width: 100%;
+    max-width: 26.25rem;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.login_box h1{
+    font-size: 2.25rem;
+    color: var(--color-font-dark);
+    margin-bottom: 0.6rem;
+}
+
+.login_subtext{
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 1.9rem;
+}
+
+.login_form{
+    width: 100%;
+}
+
+.input_group{
+    text-align: left;
+    margin-bottom: 1.25rem;
+}
+
+.input_group label{
+    font-size: 1rem;
+    color: var(--color-font-dark);
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+.input_group input{
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 0.5rem;
+    border: 0.12rem solid #ccc;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.input_group input:focus{
+    border-color: var(--color-navbar);
+}
+
+.login_options{
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+    text-align: left;
+}
+
+.remember_me{
+    display: inline-block;
+}
+
+.forgot_password{
+    float: right;
+    text-decoration: none;
+    color: var(--color-navbar);
+}
+
+.forgot_password:hover{
+    text-decoration: underline;
+}
+
+.login_btn{
+    background-color: var(--color-navbar);
+    color: var(--color-font-light);
+    border: none;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    width: 100%;
+}
+
+.login_btn:hover{
+    background-color: #14313a;
+}
+
+.register_link{
+    margin-top: 0.6rem;
+    font-size: 1rem;
+}
+
+.register_link a{
+    color: var(--color-navbar);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register_link a:hover{
+    text-decoration: underline;
+}
+
+@media (max-width: 31.25rem){
+
+    .login_box{
+        padding: 1.55rem;
+    }
+
+    .login_box h1{
+        font-size: 1.75rem;
+    }
+
+    .forgot_password{
+        float: none;
+        display: block;
+        margin-top: 0.6rem;
+    }
+
+}
