@@ -1,0 +1,43 @@
+.admin-dashboard {
+    width: 80%;
+    margin: 3% auto;
+    text-align: center;
+}
+
+.admin-card {
+    display: inline-block;
+    width: 43%;
+    min-height: 4.5rem;
+    margin: 1%;
+    padding: 2%;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    vertical-align: top;
+    line-height: 4.5rem;
+
+    background-color: #1e1e1e;
+    color: #fff;
+}
+
+.admin-card img {
+    width: 12%;
+    height: auto;
+    vertical-align: middle;
+}
+
+.admin-card span {
+    display: inline-block;
+    margin-left: 3%;
+    vertical-align: middle;
+}
+
+.admin-chart {
+    width: 92%;
+    min-height: 8rem;
+    line-height: 8rem;
+    cursor: default;
+}
+
+.admin-card:hover {
+    background-color: #2c2c2c;
+}

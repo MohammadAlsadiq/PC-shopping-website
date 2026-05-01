@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<head>
+    <meta charset ="UTF-8">
+    <title> ChipShip store</title>
+
+    <link rel="stylesheet" href="css_files/style.css">
+    <link rel="stylesheet" href="css_files/contact_us.css">
+
+    <link rel="stylesheet" href="css_files/nav_style.css">
+    <link rel="stylesheet" href="css_files/footer_style.css">
+
+    
+</head>
+
+<body>
+    
+    <header class = "navbar">
+
+        <div class = "navbar_left-side">
+
+            <div class = "navbar_logo">
+                <img src="images/logo.png" class = "logo">
+                <p id = "storeName">ChipShip</p>
+            </div>
+
+            <nav class="navbar_menu">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="help.html">Contact Us</a>
+            </nav>
+
+        </div>
+
+        <div class = "navbar_right-side">
+            <img src="images/search.png" id = "search">
+            <img src="images/cart.png" id = "cart">
+            <img src="images/profile.png" id = "profile">
+        </div>
+
+    </header>
+
+    
+    <main>
+
+        <div class = "contact_content">
+
+            <h1>Contact Us</h1>
+            <!-- The aside contains our contact details.
+                 Each element is represented as a table.-->
+
+            <aside>
+                <address>
+                <!-- <p>
+                <img style="float: left" src="images/addressLogo.png" height="35" width="35" alt="address logo">
+                Address<br>
+                King Faisal Ibn Abd Al Aziz, King Faysal University, Dammam 34212
+                </p> -->
+                <!-- <ul>
+                    <li style="list-style-image: url(images/addressLogo.png)">
+                        Address<br>
+                        King Faisal Ibn Abd Al Aziz, King Faysal University, Dammam 34212
+                    </li>
+                </ul> -->
+                
+                <table>
+                    <tr>
+                        <td style="vertical-align: top;" rowspan="2"><img src="images/addressLogo.png" height="35" width="35" alt="address logo"></td>
+                        <td>Address:</td>
+                    </tr>
+                    <tr>
+                        <td>King Faisal Ibn Abd Al Aziz, King Faysal University, Dammam 34212</td>
+                    </tr>
+                </table>
+                </address>
+
+                <table>
+                    <tr>
+                        <td style="vertical-align: top;" rowspan="2"><img src="images/timeLogo.png" height="35" width="35" alt="address logo"></td>
+                        <td>Work Hours:</td>
+                    </tr>
+                    <tr>
+                        <td>SUN-THU<br>9:00AM to 5:00PM</td>
+                    </tr>
+                </table>
+
+                <table>
+                    <tr>
+                        <td style="vertical-align: top;" rowspan="2"><img src="images/phoneLogo.png" height="35" width="35" alt="address logo"></td>
+                        <td>Phone:</td>
+                    </tr>
+                    <tr>
+                        <td>(+966) 534868653</td>
+                    </tr>
+                </table>
+
+                <table>
+                    <tr>
+                        <td style="vertical-align: top;" rowspan="2"><img src="images/emailLogo.png" height="35" width="35" alt="address logo"></td>
+                        <td>e-mail:</td>
+                    </tr>
+                    <tr>
+                        <td><a href="mailto:2230000353@iau.edu.sa">2230000353@iau.edu.sa</a></td>
+                    </tr>
+                </table>
+            </aside>
+            <p>
+                We love hearing from you, our Shop customers.<br>
+                Please contact us and we will make sure to get back to you as soon as we possibly can.
+            </p>
+
+            <!-- Form elements are positioned using a table -->
+
+            <form action="action.php" method="post">
+                <table>
+                    <tr>
+                        <td>
+                            <label for="name">Your Name</label><br>
+                            <input type="text" name="name" id="name" placeholder="Ali Mohammed"></td>
+                        <td>
+                            <label for="email">Your Email</label><br>
+                            <input type="text" name="email" id="email" placeholder="example@email.com">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="number">Your Phone Number</label><br>
+                            <input type="text" name="phone" id="phone" placeholder="05xxxxxxxx">
+                        </td>
+                    </tr>
+                </table>
+                <p style="margin-bottom: 0px">
+                    <label for="message">Whats on your mind?</label>
+                </p>
+                    <textarea name="message" id="message" placeholder=""></textarea>
+                <p>
+                    <input type="submit" value="Send">
+                </p>
+                <!-- <p>
+                    <label for="name">Your Name</label>
+                    <input type="text" name="name" id="name" placeholder="Ali Mohammed">
+                    <label for="email">Your Email</label>
+                    <input type="text" name="email" id="email" placeholder="example@email.com">
+                </p>
+                <p>
+                    <label for="number">Your Phone Number</label>
+                    <input type="text" name="phone" id="phone" placeholder="05xxxxxxxx">
+                </p> -->
+            </form>
+        </div>
+    </main>
+    
+
+    
+
+    <footer>
+        
+
+    </footer>
+
+</body>
