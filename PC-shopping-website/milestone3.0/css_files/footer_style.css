@@ -1,22 +1,20 @@
 footer{
     background-color: var(--color-navbar);
     color: white;
-    padding: 30px 20px;
+    padding: 1.9rem 1.25rem;
+    text-align: center;
 }
 
 .footer-content{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    flex-wrap: wrap;
     text-align: center;
 }
 
 .footer-content a{
+    display: inline-block;
+    margin: 0 0.95rem;
     color: white;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 1.1rem;
 }
 
 .footer-content a:hover{
@@ -24,6 +22,6 @@ footer{
 }
 
 .footer-content p{
-    margin: 0;
-    font-size: 18px;
+    margin-top: 0.6rem;
+    font-size: 1.1rem;
 }
