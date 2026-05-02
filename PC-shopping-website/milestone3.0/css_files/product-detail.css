@@ -1,0 +1,46 @@
+#compatibility {
+    background-color: lightgray;
+    border-radius: 9px;
+    transition: 1s;
+    padding: 4px;
+    margin-top: 6px;
+
+    interpolate-size: allow-keywords;
+    overflow: hidden;
+}
+
+summary {
+    cursor: pointer;
+    text-align: center;
+    list-style: none;
+    padding: 3px;
+    
+}
+
+details::details-content {
+    block-size: 0;
+    transition: 
+    block-size 1s,
+    content-visibility 1s;
+
+    transition-behavior: allow-discrete;
+
+}
+
+details[open]::details-content {
+    block-size: auto;
+}
+
+
+#productImage {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 50px
+}
+
+button {
+    border-radius: 12px;
+    border: none;
+    font-weight: bold;
+    padding: 10px;
+}

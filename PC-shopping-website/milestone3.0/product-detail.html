@@ -6,7 +6,8 @@
 
     <link rel="stylesheet" href="css_files/nav_style.css">
     <link rel="stylesheet" href="css_files/footer_style.css">
-    
+    <link rel="stylesheet" href="css_files/product-detail.css">
+
 </head>
 
 <body>
@@ -62,16 +63,16 @@
                         </ul>
                     </td>
                     <td>
-                        <img src="images/gpu.png" alt="MSI MPG Trident 3" width="200">
+                        <img id="productImage" src="images/gpu.png" alt="MSI MPG Trident 3" width="200">
                     </td>  
                 </tr>
                 <tr>
                     <td>
                         <table align="center">
                             <tr>
-                                <td rowspan="2">
+                                <td rowspan="2" style="padding: 30px">
                                     <form action="action.php" method="get">
-                                        <input type="number" name="quantity" id="quantity" min="1" max="10">
+                                        <input type="number" name="quantity" id="quantity" min="1" max="10" value="1">
                                         <span style="padding: 10px; font-weight: bold; font-size:x-large;">Cost $3,299.00</span>
                                     </form>
                                 </td>
@@ -88,7 +89,24 @@
 
             
  
-        </div>       
+        </div>
+        
+        <section id="compatibility">
+            <details>
+                <summary>
+                    Compatibility
+                </summary>
+
+                <ul>
+                    <li>Needs CPUs from 2013 and above.</li>
+                    <li>Works best with intel CPUs</li>
+                    <li>Dimensions: 30 x 15 x 3 (cm)</li>
+                    <li>Needs a 60 watt power supply</li>
+                </ul>
+
+                <p style="text-align: center;">Still need help? <a href="contact-us.html">send us a message</a></p>
+            </details>
+        </section>
     </main>
     
 
