@@ -6,3 +6,16 @@
 .contact_content aside img{
     padding-right: 3%;
 }
+
+iframe {
+    border: 5px solid gainsboro;
+    border-radius: 5px;
+    width: 30vw;
+    height: 30vh;
+    transition: 0.3s;
+    
+}
+
+iframe:hover {
+    transform: scale(1.1)
+}
