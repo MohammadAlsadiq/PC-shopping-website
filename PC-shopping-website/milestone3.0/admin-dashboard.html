@@ -1,81 +1,88 @@
- <!DOCTYPE html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> ChipShip Store</title>
-    <link rel="stylesheet" href="css_files/style.css">
-    <link rel="stylesheet" href="css_files/admin-dashboard.css">
+    <title>Admin Dashboard | ChipShip</title>
 
+    <link rel="stylesheet" href="css_files/style.css">
     <link rel="stylesheet" href="css_files/nav_style.css">
     <link rel="stylesheet" href="css_files/footer_style.css">
-
-
+    <link rel="stylesheet" href="css_files/admin-dashboard.css">
 </head>
 
 <body>
 
-    <header class="navbar">
+    <header class="navbar admin-header">
 
         <div class="navbar_left-side">
 
             <div class="navbar_logo">
-                <img src="images/logo.png" class="logo">
+                <img src="images/logo.png" class="logo" alt="ChipShip logo">
                 <p id="storeName">ChipShip</p>
             </div>
 
             <nav class="navbar_menu">
-                <a href="index.html">Home</a>
-
+                <a href="home.html">Home</a>
             </nav>
 
         </div>
 
         <div class="navbar_right-side">
-            <img src="images/search.png" id="search">
-            <img src="images/cart.png" id="cart">
-            <img src="images/profile.png" id="profile">
+            <img src="images/search.png" id="search" alt="Search">
+            <img src="images/cart.png" id="cart" alt="Cart">
+            <img src="images/profile.png" id="profile" alt="Profile">
         </div>
 
     </header>
 
+    <main class="admin-main">
 
-    <main>
-
-        <div class="admin-dashboard">
-
-            <a href="" class="admin-card">
-                <img src="images/user_male.png" alt="users">
-                <span>Manage Users</span>
-            </a>
+        <section class="admin-dashboard">
 
             <a href="inventory-management.html" class="admin-card">
-                <img src="images/inventory_icon.png" alt="inventory">
+                <img src="images/inventory_icon.png" alt="Inventory">
                 <span>Inventory Management</span>
             </a>
 
-            <a href="reports.html" class="admin-card">
-                <img src="images/reports_icon.png" alt="reports">
-                <span>Reports</span>
-            </a>
-
             <a href="orders.html" class="admin-card">
-                <img src="images/orders_icons.png" alt="orders">
+                <img src="images/orders_icons.png" alt="Orders">
                 <span>Orders</span>
             </a>
 
-            <!--Chart-->
-            <div class="admin-card admin-chart">Selling Chart in this month (will make later)</div>
+        </section>
 
-        </div>
+        <section class="charts-section">
+
+            <div class="chart-header">
+                <h1>Orders This Month</h1>
+                <button type="button" id="refreshChartsButton">Refresh Charts</button>
+            </div>
+
+            <p id="chartStatus" class="chart-status">Loading order charts...</p>
+
+            <div class="charts-grid">
+
+                <article class="chart-card">
+                    <h2>Orders Count Per Day</h2>
+                    <canvas id="ordersCountChart"></canvas>
+                </article>
+
+                <article class="chart-card">
+                    <h2>Sales Total Per Day</h2>
+                    <canvas id="salesTotalChart"></canvas>
+                </article>
+
+            </div>
+
+        </section>
 
     </main>
 
-
-
-
-    <footer>
-
+    <footer class="admin-footer">
 
     </footer>
 
+    <script type="module" src="js_files/admin-dashboard.js"></script>
+
 </body>
+</html>
