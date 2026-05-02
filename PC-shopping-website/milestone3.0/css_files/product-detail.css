@@ -37,3 +37,10 @@ details[open]::details-content {
     border-radius: 5px;
     padding: 50px
 }
+
+button {
+    border-radius: 12px;
+    border: none;
+    font-weight: bold;
+    padding: 10px;
+}
