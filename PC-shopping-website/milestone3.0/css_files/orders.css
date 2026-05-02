@@ -1,16 +1,237 @@
+.page-header {
+    align-items: center;
+    position: relative;
+}
+
 .page-header .navbar_logo {
-    margin-right: auto;
+    margin: 0 auto 0 0;
 }
 
 .page-header .back-button {
-    float: right;
-    margin-right: 3%;
-    margin-top: 1%;
-    width: 2.75rem;
-    height: 2.75rem;
-    color: #fff;
-    font-size: 2.1rem;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    color: var(--color-font-light);
+    font-size: 34px;
     text-decoration: none;
-    text-align: center;
-    line-height: 2.75rem;
+}
+
+.page-header::after {
+    content: "Orders";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-font-light);
+    font-size: 32px;
+    font-weight: bold;
+}
+
+/* Orders page */
+
+.orders-section {
+    padding: 50px;
+}
+
+/* Controls */
+
+.orders-controls {
+    display: flex;
+    align-items: flex-end;
+    gap: 18px;
+    flex-wrap: wrap;
+    background-color: #f2f2f2;
+    border: 2px solid var(--color-product-border);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.control-group label {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--color-font-dark);
+}
+
+.control-group input,
+.control-group select {
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--color-font-dark);
+    background-color: white;
+}
+
+.control-group input:focus,
+.control-group select:focus {
+    outline: none;
+    border-color: var(--color-product-border);
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.control-button {
+    height: 42px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.refresh-button {
+    background-color: #2f4858;
+}
+
+.control-button:hover {
+    opacity: 0.85;
+}
+
+/* Status */
+
+.orders-status {
+    font-size: 16px;
+    color: var(--color-font-dark);
+    margin-bottom: 12px;
+}
+
+/* Table */
+
+.orders-table-container {
+    width: 100%;
+    overflow-x: auto;
+    background-color: #f2f2f2;
+    border: 2px solid var(--color-product-border);
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.orders-table caption {
+    display: none;
+}
+
+.orders-table th,
+.orders-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid #ccc;
+    color: var(--color-font-dark);
+}
+
+.orders-table th {
+    background-color: var(--color-navbar);
+    color: var(--color-font-light);
+    font-size: 18px;
+}
+
+.orders-table td {
+    font-size: 16px;
+}
+
+.orders-table tr:last-child td {
+    border-bottom: none;
+}
+
+.orders-table tbody tr:hover {
+    background-color: #e8e8e8;
+}
+
+/* Pagination */
+
+.pagination-controls {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 22px;
+}
+
+.pagination-controls.show {
+    display: flex;
+}
+
+.pagination-button {
+    min-height: 42px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2f4858;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.pagination-button:hover {
+    opacity: 0.85;
+}
+
+.pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#pageInfo {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--color-font-dark);
+}
+
+/* Responsive */
+
+@media (max-width: 800px) {
+    .orders-section {
+        padding: 30px 20px;
+    }
+
+    .orders-controls {
+        align-items: stretch;
+    }
+
+    .control-group,
+    .button-group {
+        width: 100%;
+    }
+
+    .control-button {
+        width: 100%;
+    }
+
+    .pagination-controls {
+        flex-direction: column;
+    }
+
+    .pagination-button {
+        width: 100%;
+    }
+
+    .page-header::after {
+        font-size: 24px;
+    }
 }

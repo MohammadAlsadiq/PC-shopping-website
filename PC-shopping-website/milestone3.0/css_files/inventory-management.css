@@ -22,22 +22,21 @@
     text-decoration: none;
 }
 
+.page-header::after {
+    content: "Inventory Management";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-font-light);
+    font-size: 32px;
+    font-weight: bold;
+}
+
 /* Inventory page */
 
 .inventory-section {
     padding: 50px;
-}
-
-.inventory-title-area h1 {
-    font-size: 36px;
-    color: var(--color-font-dark);
-    margin-bottom: 10px;
-}
-
-.inventory-title-area p {
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 30px;
 }
 
 /* Controls */
@@ -114,10 +113,6 @@
     background-color: #2d7d46;
 }
 
-.delete-button {
-    background-color: #9f2f2f;
-}
-
 .modify-button {
     background-color: #8a6500;
 }
@@ -160,6 +155,7 @@
     padding: 16px 20px;
     border-bottom: 1px solid #ccc;
     color: var(--color-font-dark);
+    vertical-align: middle;
 }
 
 .inventory-table th {
@@ -178,6 +174,20 @@
 
 .inventory-table tbody tr:hover {
     background-color: #e8e8e8;
+}
+
+.item-thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: white;
+}
+
+.no-image-text {
+    color: #777;
+    font-size: 14px;
 }
 
 .stock-status {
@@ -223,7 +233,9 @@
 .modal-box {
     position: relative;
     width: 100%;
-    max-width: 520px;
+    max-width: 620px;
+    max-height: 90vh;
+    overflow-y: auto;
     background-color: #f2f2f2;
     border-radius: 15px;
     border: 2px solid var(--color-product-border);
@@ -253,6 +265,121 @@
     cursor: pointer;
 }
 
+/* Modal forms */
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-row label {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--color-font-dark);
+}
+
+.form-row input,
+.form-row select {
+    min-height: 42px;
+    padding: 0 12px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--color-font-dark);
+    background-color: white;
+}
+
+.form-row input[type="file"] {
+    padding: 9px 12px;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+    outline: none;
+    border-color: var(--color-product-border);
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.form-button {
+    min-height: 42px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.save-form-button {
+    background-color: #2d7d46;
+}
+
+.cancel-form-button {
+    background-color: #555;
+}
+
+.delete-form-button {
+    background-color: #9f2f2f;
+}
+
+.load-form-button {
+    background-color: #2f4858;
+}
+
+.form-button:hover {
+    opacity: 0.85;
+}
+
+.form-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.modal-message {
+    margin-top: 12px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.modal-message.error {
+    color: #9f2f2f;
+}
+
+.modal-message.success {
+    color: #2d7d46;
+}
+
+.current-image-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.current-image-box img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
 /* Responsive */
 
 @media (max-width: 800px) {
@@ -277,21 +404,16 @@
     .control-button {
         width: 100%;
     }
-}
 
-/* Move page title into header */
+    .page-header::after {
+        font-size: 24px;
+    }
 
-.inventory-title-area {
-    display: none;
-}
+    .form-actions {
+        flex-direction: column;
+    }
 
-.page-header::after {
-    content: "Inventory Management";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    color: var(--color-font-light);
-    font-size: 32px;
-    font-weight: bold;
+    .form-button {
+        width: 100%;
+    }
 }

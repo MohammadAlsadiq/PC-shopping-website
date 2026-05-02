@@ -1,41 +1,223 @@
+/* Page layout */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-main {
+    flex: 1;
+    padding: clamp(2rem, 4vw, 4rem);
+}
+
+/* Fixed admin header */
+
+.admin-header.navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 5.5rem;
+    height: auto;
+    padding: 1rem 2rem;
+}
+
+.admin-header .navbar_left-side {
+    display: flex;
+    align-items: center;
+    gap: clamp(2rem, 6vw, 6rem);
+}
+
+.admin-header .navbar_logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.admin-header .logo {
+    width: clamp(3rem, 4vw, 4rem);
+    height: clamp(3rem, 4vw, 4rem);
+    object-fit: contain;
+}
+
+.admin-header #storeName {
+    font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+    margin: 0;
+}
+
+.admin-header .navbar_menu {
+    display: flex;
+    align-items: center;
+}
+
+.admin-header .navbar_menu a {
+    font-size: clamp(1.1rem, 1.4vw, 1.5rem);
+    color: var(--color-font-light);
+    text-decoration: none;
+}
+
+.admin-header .navbar_right-side {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    margin-left: auto;
+}
+
+.admin-header .navbar_right-side img {
+    width: clamp(2rem, 2.8vw, 3rem);
+    height: clamp(2rem, 2.8vw, 3rem);
+    object-fit: contain;
+}
+
+/* Admin cards */
+
 .admin-dashboard {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* 2 columns */
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+    margin-bottom: clamp(2rem, 4vw, 3.5rem);
 }
-
-.admin-chart {
-    grid-column: span 2;
-    height: 180px;
-    cursor: default;
-}
-
 
 .admin-card {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: clamp(0.7rem, 1.5vw, 1.2rem);
 
-    height: 120px;
-    border-radius: 12px;
+    min-height: clamp(6rem, 10vw, 8rem);
+    padding: clamp(1.2rem, 2vw, 2rem);
+    border-radius: 0.8rem;
     text-decoration: none;
 
     background: var(--card-bg, #1e1e1e);
     color: var(--text-color, #fff);
 
+    font-size: clamp(1rem, 1.3vw, 1.25rem);
     transition: 0.2s ease;
 }
 
 .admin-card img {
-    width: 28px;
-    height: 28px;
+    width: clamp(1.7rem, 2.2vw, 2.2rem);
+    height: clamp(1.7rem, 2.2vw, 2.2rem);
     object-fit: contain;
 }
 
-
 .admin-card:hover {
-    transform: scale(1.03);
+    transform: scale(1.02);
     background: var(--card-hover, #2c2c2c);
-}       
+}
+
+/* Charts section */
+
+.charts-section {
+    background-color: #f2f2f2;
+    border-radius: 1rem;
+    padding: clamp(1.2rem, 2.5vw, 2rem);
+    box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,0.15);
+}
+
+.chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+}
+
+.chart-header h1 {
+    color: var(--color-font-dark);
+    font-size: clamp(1.6rem, 2.3vw, 2.4rem);
+    margin: 0;
+}
+
+#refreshChartsButton {
+    min-height: 2.7rem;
+    padding: 0 1.2rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #2f4858;
+    color: white;
+    font-size: clamp(0.9rem, 1vw, 1rem);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#refreshChartsButton:hover {
+    opacity: 0.85;
+}
+
+.chart-status {
+    color: #555;
+    font-size: clamp(0.95rem, 1vw, 1.1rem);
+    margin-bottom: 1.4rem;
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.chart-card {
+    background-color: white;
+    border-radius: 0.9rem;
+    padding: clamp(1rem, 2vw, 1.5rem);
+    border: 0.1rem solid #ddd;
+}
+
+.chart-card h2 {
+    color: var(--color-font-dark);
+    font-size: clamp(1.1rem, 1.4vw, 1.4rem);
+    margin: 0 0 1rem 0;
+    text-align: center;
+}
+
+.chart-card canvas {
+    width: 100%;
+    height: clamp(16rem, 28vw, 24rem);
+    display: block;
+}
+
+/* Footer */
+
+.admin-footer {
+    min-height: clamp(3.5rem, 6vw, 5rem);
+}
+
+/* Responsive */
+
+@media (max-width: 700px) {
+    .admin-header.navbar {
+        padding: 1rem;
+    }
+
+    .admin-header .navbar_left-side {
+        gap: 1.5rem;
+    }
+
+    .admin-header .navbar_right-side {
+        gap: 1.2rem;
+    }
+
+    .admin-header .navbar_menu a {
+        font-size: 1rem;
+    }
+
+    .admin-header #storeName {
+        font-size: 1.5rem;
+    }
+
+    .admin-header .logo {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .admin-header .navbar_right-side img {
+        width: 2rem;
+        height: 2rem;
+    }
+}

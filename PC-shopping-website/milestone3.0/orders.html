@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Orders | ChipShip</title>
+
     <link rel="stylesheet" href="css_files/style.css">
     <link rel="stylesheet" href="css_files/orders.css">
 </head>
@@ -20,9 +22,68 @@
     </header>
 
     <main>
-        <section>
-            <h1>Orders</h1>
-            <p>This page is ready for order tracking, status updates, and fulfillment work.</p>
+        <section class="orders-section">
+
+            <div class="orders-controls">
+
+                <div class="control-group">
+                    <label for="startDateFilter">Starting Date</label>
+                    <input type="date" id="startDateFilter">
+                </div>
+
+                <div class="control-group">
+                    <label for="endDateFilter">Ending Date</label>
+                    <input type="date" id="endDateFilter">
+                </div>
+
+                <div class="control-group">
+                    <label for="sortFilter">Sort Orders</label>
+                    <select id="sortFilter">
+                        <option value="earliest-latest">Earliest to Latest</option>
+                        <option value="latest-earliest">Latest to Earliest</option>
+                        <option value="most-expensive">Most Expensive</option>
+                        <option value="least-expensive">Least Expensive</option>
+                    </select>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" id="refreshButton" class="control-button refresh-button">Refresh</button>
+                </div>
+
+            </div>
+
+            <div class="orders-status" id="ordersStatus">
+                Loading orders...
+            </div>
+
+            <div class="orders-table-container">
+                <table class="orders-table">
+                    <caption>Orders from the store database</caption>
+
+                    <thead>
+                        <tr>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">User ID</th>
+                            <th scope="col">User Name</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="ordersTableBody">
+                        <tr>
+                            <td colspan="5">Loading orders...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination-controls" id="paginationControls">
+                <button type="button" id="previousPageButton" class="pagination-button">&#8592; Previous</button>
+                <span id="pageInfo">Page 1</span>
+                <button type="button" id="nextPageButton" class="pagination-button">Next &#8594;</button>
+            </div>
+
         </section>
     </main>
 
@@ -30,4 +91,7 @@
 
     </footer>
 
+    <script type="module" src="js_files/orders.js"></script>
+
 </body>
+</html>
