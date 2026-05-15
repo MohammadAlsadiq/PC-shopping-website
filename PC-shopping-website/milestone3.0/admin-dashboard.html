@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Admin Dashboard | ChipShip</title>
 
+    <link rel="stylesheet" href="css_files/css-navbar_files/profile-dropdown.css">
     <link rel="stylesheet" href="css_files/style.css">
     <link rel="stylesheet" href="css_files/nav_style.css">
     <link rel="stylesheet" href="css_files/footer_style.css">
@@ -12,28 +13,7 @@
 
 <body>
 
-    <header class="navbar admin-header">
-
-        <div class="navbar_left-side">
-
-            <div class="navbar_logo">
-                <img src="images/logo.png" class="logo" alt="ChipShip logo">
-                <p id="storeName">ChipShip</p>
-            </div>
-
-            <nav class="navbar_menu">
-                <a href="home.html">Home</a>
-            </nav>
-
-        </div>
-
-        <div class="navbar_right-side">
-            <img src="images/search.png" id="search" alt="Search">
-            <img src="images/cart.png" id="cart" alt="Cart">
-            <img src="images/profile.png" id="profile" alt="Profile">
-        </div>
-
-    </header>
+    <div id="navbar-placeholder"></div>
 
     <main class="admin-main">
 
@@ -78,10 +58,9 @@
 
     </main>
 
-    <footer class="admin-footer">
+    <div id="footer-placeholder"></div>
 
-    </footer>
-
+    <script type="module" src="js_files/load-layout.js"></script>
     <script type="module" src="js_files/admin-dashboard.js"></script>
 
 </body>
