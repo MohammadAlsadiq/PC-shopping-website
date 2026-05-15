@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Home | ChipShip</title>
-
+    <link rel="stylesheet" href="css_files/css-navbar_files/profile-dropdown.css">
     <link rel="stylesheet" href="css_files/nav_style.css">
     <link rel="stylesheet" href="css_files/style.css">
     <link rel="stylesheet" href="css_files/home.css">
@@ -28,7 +28,20 @@
         <div class="navbar_right-side">
             <img src="images/search.png" id="search" alt="Search">
             <img src="images/cart.png" id="cart" alt="Cart">
-            <img src="images/profile.png" id="profile" alt="Profile">
+
+            <div class="profile-menu-wrapper">
+                <img 
+                    src="images/profile.png" 
+                    id="profile" 
+                    alt="Profile"
+                    role="button"
+                    tabindex="0"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                >
+                <div class="profile-dropdown" id="profileDropdown"></div>
+
+            </div>
         </div>
     </header>
 
@@ -392,7 +405,7 @@
             <p>Copyright © 2026 Chip Chip Store</p>
         </div>
     </footer>
-
+    <script type="module" src="js_files/js-navbar_files/profile-icon.js"></script>
     <script type="module" src="js_files/home.js"></script>
 </body>
 </html>
