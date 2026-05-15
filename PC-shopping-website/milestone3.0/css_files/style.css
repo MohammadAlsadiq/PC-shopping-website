@@ -25,6 +25,13 @@
 }
 
 /* Body base */
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-font-dark);
+}
+
 main {
     background-color: var(--color-bg);
     min-height: 80%;
