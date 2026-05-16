@@ -1,4 +1,3 @@
-> عبدالله العطية:
 <!DOCTYPE html>
 
 <html lang="en">
@@ -20,7 +19,7 @@
     <div class="navbar_left-side">
 
         <div class="navbar_logo">
-            <img src="images/logo.png" class="logo" alt="Chip Chip Logo">
+            <img src="images/logo.png" class="logo" alt="ChipShip Logo">
             <p id="storeName">ChipShip</p>
         </div>
 
@@ -37,46 +36,42 @@
             <h1>Create Account</h1>
 
             <p class="register_subtext">
-                Join Chip Chip and start shopping!
+                Join ChipShip and start shopping!
             </p>
 
             <form class="register_form">
 
-                <!-- First + Last Name -->
                 <div class="name_row">
 
                     <div class="input_group">
-                        <label>First Name</label>
-                        <input type="text" id="first_name" placeholder="First name">
+                        <label for="first_name">First Name</label>
+                        <input type="text" id="first_name" placeholder="First name" autocomplete="given-name">
                         <small class="error"></small>
                     </div>
 
                     <div class="input_group">
-                        <label>Last Name</label>
-                        <input type="text" id="last_name" placeholder="Last name">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" id="last_name" placeholder="Last name" autocomplete="family-name">
                         <small class="error"></small>
                     </div>
 
                 </div>
 
-                <!-- Email -->
                 <div class="input_group">
-                    <label>Email</label>
-                    <input type="email" id="email" placeholder="Enter your email" required>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" autocomplete="email" required>
                     <small class="error"></small>
                 </div>
 
-                <!-- Password -->
                 <div class="input_group">
-                    <label>Password</label>
-                    <input type="password" id="password" placeholder="Enter your password">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" autocomplete="new-password">
                     <small class="error"></small>
                 </div>
 
-                <!-- Confirm Password -->
                 <div class="input_group">
-                    <label>Confirm Password</label>
-                    <input type="password" id="confirm_password" placeholder="Confirm your password">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" placeholder="Confirm your password" autocomplete="new-password">
                     <small class="error"></small>
                 </div>
 
@@ -103,106 +98,7 @@
 
 </footer>
 
-<script>
-
-const firstName = document.getElementById("first_name");
-const lastName = document.getElementById("last_name");
-const password = document.getElementById("password");
-const confirmPassword = document.getElementById("confirm_password");
-const form = document.querySelector(".register_form");
-
-const lettersOnly = /^[A-Za-z]+$/;
-
-/* ---------- helpers ---------- */
-function setError(input, message){
-    const parent = input.parentElement;
-    const error = parent.querySelector("small");
-
-    error.innerText = message;
-    input.classList.add("error_input");
-    input.classList.remove("valid_input");
-}
-
-function setSuccess(input){
-    const parent = input.parentElement;
-    const error = parent.querySelector("small");
-
-    error.innerText = "";
-    input.classList.remove("error_input");
-    input.classList.add("valid_input");
-}
-
-/* ---------- live validation ---------- */
-
-/* First name */
-firstName.addEventListener("input", function(){
-    if(!lettersOnly.test(firstName.value.trim())){
-        setError(firstName, "Only letters allowed");
-    } else {
-        setSuccess(firstName);
-    }
-});
-
-/* Last name */
-lastName.addEventListener("input", function(){
-    if(!lettersOnly.test(lastName.value.trim())){
-        setError(lastName, "Only letters allowed");
-    } else {
-        setSuccess(lastName);
-    }
-});
-
-/* Password */
-password.addEventListener("input", function(){
-    if(password.value.length < 8){
-        setError(password, "Minimum 8 characters required");
-    } else {
-        setSuccess(password);
-    }
-});
-
-/* Confirm password */
-confirmPassword.addEventListener("input", function(){
-    if(confirmPassword.value !== password.value){
-        setError(confirmPassword, "Passwords do not match");
-    } else {
-        setSuccess(confirmPassword);
-    }
-});
-
-/* Final check on submit */
-form.addEventListener("submit", function(e){
-
-    let valid = true;
-
-    if(!lettersOnly.test(firstName.value.trim())){
-        setError(firstName, "Only letters allowed");
-        valid = false;
-    }
-
-    if(!lettersOnly.test(lastName.value.trim())){
-        setError(lastName, "Only letters allowed");
-        valid = false;
-    }
-
-    if(password.value.length < 8){
-        setError(password, "Minimum 8 characters required");
-        valid = false;
-    }
-
-    if(confirmPassword.value !== password.value){
-        setError(confirmPassword, "Passwords do not match");
-        valid = false;
-    }
-
-    if(!valid){
-        e.preventDefault();
-    }
-
-});
-
-</script>
-
+<script type="module" src="js_files/register.js"></script>
 
 </body>
 

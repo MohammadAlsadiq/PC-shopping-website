@@ -1,6 +1,6 @@
 import { supabase } from "./supabaseClient.js";
 
-const AuthState = {
+export const AuthState = {
     ready: false,
     session: null,
     authUser: null,
@@ -12,61 +12,8 @@ const AuthState = {
 window.supabaseClient = supabase;
 window.AuthState = AuthState;
 
-async function loadAuthState() {
-    AuthState.ready = false;
-
-    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
-
-    if (sessionError) {
-        console.error("Session error:", sessionError.message);
-        resetAuthState();
-        finishAuthState();
-        return;
-    }
-
-    AuthState.session = sessionData.session;
-
-    if (!AuthState.session) {
-        resetAuthState();
-        finishAuthState();
-        return;
-    }
-
-    const { data: userData, error: userError } = await supabase.auth.getUser();
-
-    if (userError || !userData.user) {
-        console.error("User error:", userError?.message);
-        resetAuthState();
-        finishAuthState();
-        return;
-    }
-
-    AuthState.authUser = userData.user;
-    AuthState.isLoggedIn = true;
-
-    await loadUserProfile();
-
-    finishAuthState();
-}
-
-async function loadUserProfile() {
-    const { data, error } = await supabase
-        .schema("store")
-        .from("user")
-        .select("id, email, first_name, last_name, name, isadmin, address")
-        .eq("id", AuthState.authUser.id)
-        .single();
-
-    if (error) {
-        console.error("Profile load error:", error.message);
-        AuthState.profile = null;
-        AuthState.isAdmin = false;
-        return;
-    }
-
-    AuthState.profile = data;
-    AuthState.isAdmin = data.isadmin === true;
-}
+let authStarted = false;
+let loadCounter = 0;
 
 function resetAuthState() {
     AuthState.session = null;
@@ -76,10 +23,70 @@ function resetAuthState() {
     AuthState.isAdmin = false;
 }
 
+async function loadAuthState() {
+    const currentLoad = ++loadCounter;
+
+    AuthState.ready = false;
+
+    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+
+    if (currentLoad !== loadCounter) {
+        return;
+    }
+
+    if (sessionError || !sessionData.session) {
+        resetAuthState();
+        finishAuthState();
+        return;
+    }
+
+    const { data: userData, error: userError } = await supabase.auth.getUser();
+
+    if (currentLoad !== loadCounter) {
+        return;
+    }
+
+    if (userError || !userData.user) {
+        resetAuthState();
+        finishAuthState();
+        return;
+    }
+
+    AuthState.session = sessionData.session;
+    AuthState.authUser = userData.user;
+    AuthState.isLoggedIn = true;
+
+    await loadUserProfile(userData.user.id);
+
+    if (currentLoad !== loadCounter) {
+        return;
+    }
+
+    finishAuthState();
+}
+
+async function loadUserProfile(userId) {
+    const { data, error } = await supabase
+        .schema("store")
+        .from("user")
+        .select("id, email, first_name, last_name, name, isadmin, address, created_at, updated_at")
+        .eq("id", userId)
+        .maybeSingle();
+
+    if (error) {
+        console.error("Profile load error:", error.message);
+        AuthState.profile = null;
+        AuthState.isAdmin = false;
+        return;
+    }
+
+    AuthState.profile = data;
+    AuthState.isAdmin = data?.isadmin === true;
+}
+
 function finishAuthState() {
     AuthState.ready = true;
 
-    updateNavbarForAuth();
     protectCurrentPage();
 
     document.dispatchEvent(new CustomEvent("auth-ready", {
@@ -88,6 +95,10 @@ function finishAuthState() {
 }
 
 function protectCurrentPage() {
+    if (!document.body) {
+        return;
+    }
+
     const requiresAuth = document.body.dataset.auth === "required";
     const requiresAdmin = document.body.dataset.admin === "required";
 
@@ -97,94 +108,86 @@ function protectCurrentPage() {
     }
 
     if (requiresAdmin && !AuthState.isAdmin) {
-        window.location.href = "index.html";
+        window.location.href = "home.html";
     }
+}
+
+function getCurrentPageForRedirect() {
+    const fileName = window.location.pathname.split("/").pop() || "home.html";
+    return fileName + window.location.search;
 }
 
 function redirectToLogin() {
-    const currentPage = window.location.pathname.split("/").pop() || "index.html";
-    window.location.href = `login.html?redirect=${encodeURIComponent(currentPage)}`;
-}
+    const currentFile = window.location.pathname.split("/").pop();
 
-function updateNavbarForAuth() {
-    setupCartIcon();
-    setupProfileDropdown();
-}
-
-function setupCartIcon() {
-    const cartIcon = document.getElementById("cart");
-
-    if (!cartIcon) return;
-
-    cartIcon.onclick = function () {
-        if (AuthState.isLoggedIn) {
-            window.location.href = "cart.html";
-        } else {
-            window.location.href = "login.html?redirect=cart.html";
-        }
-    };
-}
-
-function setupProfileDropdown() {
-    const profileIcon = document.getElementById("profile");
-    const dropdown = document.getElementById("profileDropdown");
-
-    if (!profileIcon || !dropdown) return;
-
-    dropdown.innerHTML = "";
-
-    if (AuthState.isLoggedIn) {
-        const displayName =
-            AuthState.profile?.first_name ||
-            AuthState.profile?.name ||
-            AuthState.authUser?.email ||
-            "User";
-
-        dropdown.innerHTML = `
-            <p class="dropdown_username">${displayName}</p>
-            <a href="profile.html">Profile</a>
-            <a href="orders.html">My Orders</a>
-            ${AuthState.isAdmin ? '<a href="dashboard.html">Admin Dashboard</a>' : ""}
-            <button type="button" id="logoutBtn">Logout</button>
-        `;
-
-        const logoutBtn = document.getElementById("logoutBtn");
-
-        if (logoutBtn) {
-            logoutBtn.addEventListener("click", logoutUser);
-        }
-    } else {
-        dropdown.innerHTML = `
-            <a href="login.html">Login</a>
-            <a href="register.html">Register</a>
-        `;
+    if (currentFile === "login.html") {
+        return;
     }
 
-    profileIcon.onclick = function () {
-        dropdown.classList.toggle("show");
-    };
-
-    document.addEventListener("click", function (event) {
-        if (!profileIcon.contains(event.target) && !dropdown.contains(event.target)) {
-            dropdown.classList.remove("show");
-        }
-    });
+    const redirectTarget = getCurrentPageForRedirect();
+    window.location.href = `login.html?redirect=${encodeURIComponent(redirectTarget)}`;
 }
 
-async function logoutUser() {
+function getRedirectTarget(defaultPage = "home.html") {
+    const params = new URLSearchParams(window.location.search);
+    const redirect = params.get("redirect");
+
+    if (!redirect) {
+        return defaultPage;
+    }
+
+    if (redirect.startsWith("http://") || redirect.startsWith("https://")) {
+        return defaultPage;
+    }
+
+    return redirect;
+}
+
+function getDisplayName() {
+    if (!AuthState.isLoggedIn) {
+        return "Guest";
+    }
+
+    if (AuthState.profile?.name) {
+        return AuthState.profile.name;
+    }
+
+    const firstName = AuthState.profile?.first_name || "";
+    const lastName = AuthState.profile?.last_name || "";
+    const fullName = `${firstName} ${lastName}`.trim();
+
+    if (fullName) {
+        return fullName;
+    }
+
+    return AuthState.authUser?.email || "User";
+}
+
+async function logoutUser(redirectPage = "home.html") {
     const { error } = await supabase.auth.signOut();
 
     if (error) {
         console.error("Logout error:", error.message);
-        return;
+        alert("Logout failed. Please try again.");
+        return false;
     }
 
-    window.location.href = "login.html";
+    resetAuthState();
+    window.location.href = redirectPage;
+    return true;
 }
 
-window.Auth = {
+export const Auth = {
     getState: function () {
         return AuthState;
+    },
+
+    getUser: function () {
+        return AuthState.authUser;
+    },
+
+    getProfile: function () {
+        return AuthState.profile;
     },
 
     isLoggedIn: function () {
@@ -195,29 +198,59 @@ window.Auth = {
         return AuthState.isAdmin;
     },
 
+    getDisplayName: getDisplayName,
+
+    getRedirectTarget: getRedirectTarget,
+
+    redirectToLogin: redirectToLogin,
+
     logout: logoutUser,
 
-    requireLogin: function () {
-        if (!AuthState.isLoggedIn) {
-            redirectToLogin();
-            return false;
-        }
-
-        return true;
-    },
+    reload: loadAuthState,
 
     onReady: function (callback) {
         if (AuthState.ready) {
             callback(AuthState);
-        } else {
-            document.addEventListener("auth-ready", function (event) {
-                callback(event.detail);
-            });
+            return;
         }
+
+        const handler = function (event) {
+            document.removeEventListener("auth-ready", handler);
+            callback(event.detail);
+        };
+
+        document.addEventListener("auth-ready", handler);
+    },
+
+    onChange: function (callback) {
+        const handler = function (event) {
+            callback(event.detail);
+        };
+
+        document.addEventListener("auth-ready", handler);
+
+        return function () {
+            document.removeEventListener("auth-ready", handler);
+        };
     }
 };
 
-document.addEventListener("DOMContentLoaded", loadAuthState);
+window.Auth = Auth;
+
+function startAuth() {
+    if (authStarted) {
+        return;
+    }
+
+    authStarted = true;
+    loadAuthState();
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", startAuth);
+} else {
+    startAuth();
+}
 
 supabase.auth.onAuthStateChange(function () {
     setTimeout(loadAuthState, 0);

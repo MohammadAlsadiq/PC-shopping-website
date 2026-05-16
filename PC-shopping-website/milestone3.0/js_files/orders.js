@@ -169,9 +169,9 @@ function renderCurrentPage() {
         return;
     }
 
-    const startIndex = (currentPage - 1) * rowsPerPage;
-    const endIndex = startIndex + rowsPerPage;
-    const currentRows = filteredOrders.slice(startIndex, endIndex);
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const currentRows = filteredOrders.slice(start, end);
 
     currentRows.forEach((order) => {
         const row = document.createElement("tr");
@@ -200,8 +200,8 @@ function renderCurrentPage() {
         ordersTableBody.appendChild(row);
     });
 
-    const showingStart = startIndex + 1;
-    const showingEnd = Math.min(endIndex, filteredOrders.length);
+    const showingStart = start + 1;
+    const showingEnd = Math.min(end, filteredOrders.length);
 
     setStatus(`Showing ${showingStart}-${showingEnd} of ${filteredOrders.length} orders.`);
 
