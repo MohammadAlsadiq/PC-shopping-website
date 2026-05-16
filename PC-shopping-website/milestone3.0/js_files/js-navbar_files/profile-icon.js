@@ -12,7 +12,13 @@ const profileMenus = {
 
     user: [
         { text: "Profile", href: "profile.html" },
+        { text: "Log Out", action: "logout" }
+    ],
+
+    admin: [
+        { text: "Profile", href: "profile.html" },
         { text: "Orders", href: "orders.html" },
+        { text: "Dashboard", href: "dashboard.html" },
         { text: "Log Out", action: "logout" }
     ]
 };
@@ -110,7 +116,7 @@ function setupCartIcon() {
     cartIcon.dataset.cartReady = "true";
     cartIcon.style.cursor = "pointer";
 
-    cartIcon.addEventListener("click", function () {
+        cartIcon.addEventListener("click", function () {
         if (AuthState.isLoggedIn) {
             window.location.href = "cart.html";
         } else {

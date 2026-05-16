@@ -5,94 +5,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | ChipShip</title>
 
-    <title>Chip Chip Store</title>
-
-    
     <link rel="stylesheet" href="css_files/style.css">
-    <link rel="stylesheet" href="css_files/profile.css">
-
     <link rel="stylesheet" href="css_files/nav_style.css">
+    <link rel="stylesheet" href="css_files/auth.css">
+    <link rel="stylesheet" href="css_files/css-navbar_files/profile-dropdown.css">
     <link rel="stylesheet" href="css_files/footer_style.css">
+    <link rel="stylesheet" href="css_files/profile.css">
+    <link rel="stylesheet" href="css_files/css-navbar_files/navbar-search.css">
 </head>
 
 <body data-auth="required">
 
     <div id="navbar-placeholder"></div>
 
-    <main>
+    <main class="profile_page">
 
-        <div class="profile_content">
+        <section class="profile_card">
 
-            <div class="profile_box">
-
+            <div class="profile_header">
                 <h1>My Profile</h1>
-
-                <p class="profile_subtext">
-                    Manage your account details
-                </p>
-
-                <form class="profile_form">
-
-                    <!-- First + Last Name -->
-                    <div class="name_row">
-
-                        <div class="input_group">
-                            <label>First Name</label>
-                            <input type="text" value="">
-                        </div>
-
-                        <div class="input_group">
-                            <label>Last Name</label>
-                            <input type="text" value="">
-                        </div>
-
-                    </div>
-
-                    <!-- Email -->
-                    <div class="input_group">
-                        <label>Email</label>
-                        <input type="email" value="">
-                    </div>
-
-                    <!-- Phone -->
-                    <div class="input_group">
-                        <label>Phone Number</label>
-                        <input type="tel" value="">
-                    </div>
-
-                    <!-- Address -->
-                    <div class="input_group">
-                        <label>Address</label>
-                        <input type="text" value="">
-                    </div>
-
-                    <!-- Buttons -->
-                    <div class="profile_actions">
-
-                        <button type="submit" class="edit_btn">
-                            Save Changes
-                        </button>
-
-                        <button type="button" class="logout_btn">
-                            Logout
-                        </button>
-
-                    </div>
-
-                </form>
-
+                <p>Manage your account details and view your orders</p>
             </div>
+
+            <div class="profile_info">
+                <div class="info_row">
+                    <span>Name</span>
+                    <strong id="profileName">Loading...</strong>
+                </div>
+
+                <div class="info_row">
+                    <span>Email</span>
+                    <strong id="profileEmail">Loading...</strong>
+                </div>
+
+                <div class="info_row">
+                    <span>Address</span>
+                    <strong id="profileAddress">Not added</strong>
+                </div>
+            </div>
+
+            <div class="profile_actions">
+                <button type="button" id="openEditProfileBtn" class="edit_btn">
+                    Edit My Info
+                </button>
+
+                <button type="button" id="deleteAccountBtn" class="delete_btn">
+                    Delete My Account
+                </button>
+            </div>
+
+        </section>
+
+        <section class="orders_card">
+
+            <div class="orders_header">
+                <h2>My Orders</h2>
+                <p>Your previous purchases will appear here.</p>
+            </div>
+
+            <div id="ordersMessage" class="orders_message">
+                Loading orders...
+            </div>
+
+            <div class="orders_table_wrapper">
+                <table class="orders_table" id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Total</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="ordersTableBody"></tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+
+    <div class="modal_overlay" id="editProfileModal" aria-hidden="true">
+
+        <div class="modal_box">
+
+            <div class="modal_header">
+                <h2>Edit My Info</h2>
+                <button type="button" id="closeEditProfileBtn" class="modal_close_btn">
+                    ×
+                </button>
+            </div>
+
+            <form id="editProfileForm" class="edit_profile_form">
+
+                <div class="input_group">
+                    <label for="editFirstName">First Name</label>
+                    <input type="text" id="editFirstName" autocomplete="given-name">
+                    <small class="error"></small>
+                </div>
+
+                <div class="input_group">
+                    <label for="editLastName">Last Name</label>
+                    <input type="text" id="editLastName" autocomplete="family-name">
+                    <small class="error"></small>
+                </div>
+
+                <div class="input_group">
+                    <label for="editAddress">Address</label>
+                    <input type="text" id="editAddress" autocomplete="street-address">
+                    <small class="error"></small>
+                </div>
+
+                <div class="modal_actions">
+                    <button type="submit" class="save_btn">
+                        Save Changes
+                    </button>
+
+                    <button type="button" id="cancelEditProfileBtn" class="cancel_btn">
+                        Cancel
+                    </button>
+                </div>
+
+            </form>
 
         </div>
 
-    </main>
+    </div>
 
     <div id="footer-placeholder"></div>
 
     <script type="module" src="js_files/load-layout.js"></script>
     <script type="module" src="js_files/auth.js"></script>
     <script type="module" src="js_files/js-navbar_files/profile-icon.js"></script>
+    <script type="module" src="js_files/js-navbar_files/navbar-search.js"></script>
+
+     <script type="module" src="js_files/profile.js"></script>
 
 </body>
 

@@ -134,18 +134,20 @@ form.addEventListener("submit", async function (e) {
     });
 
     if (error) {
-        const message = error.message.toLowerCase();
+    const message = error.message.toLowerCase();
 
-        if (message.includes("already registered") || message.includes("already exists")) {
-            setError(email, "This email already has an account");
-        } else {
-            alert(error.message);
-        }
-
-        registerButton.disabled = false;
-        registerButton.innerText = "Register";
-        return;
+    if (message.includes("already registered") || message.includes("already exists")) {
+        setError(email, "This email already has an account");
+    } else if (message.includes("rate limit")) {
+        setError(email, "Too many signup attempts. Please wait and try again later.");
+    } else {
+        alert(error.message);
     }
+
+    registerButton.disabled = false;
+    registerButton.innerText = "Register";
+    return;
+}
 
     alert("Account created successfully.");
     window.location.href = "home.html";
