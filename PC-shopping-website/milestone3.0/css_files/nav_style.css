@@ -1,65 +1,240 @@
 .navbar{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    width: 100%;
+    min-height: 6.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+
     background-color: var(--color-navbar);
     color: var(--color-font-light);
-    padding: 0.95rem 1.9rem;
+
+    padding: 1.2rem 2rem;
+    box-sizing: border-box;
 }
 
+/* Left side */
 .navbar_left-side{
-    display: inline-block;
-    vertical-align: middle;
-    width: 70%;
-}
-
-.navbar_right-side{
-    display: inline-block;
-    vertical-align: middle;
-    width: 28%;
-    text-align: right;
-    font-size: 2rem;
-}
-
-.navbar_right-side img{
-    cursor: pointer;
-    margin-left: 1.9rem;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    flex-shrink: 0;
 }
 
 .navbar_logo{
-    display: inline-block;
-    font-size: 2rem;
-    vertical-align: middle;
-    margin-right: 6.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    flex-shrink: 0;
 }
 
-.navbar_logo img{
-    width: 3.75rem;
-    height: 3.75rem;
-    vertical-align: middle;
+.logo{
+    width: clamp(3rem, 4vw, 4rem);
+    height: clamp(3rem, 4vw, 4rem);
+    object-fit: contain;
 }
 
-.navbar_logo p{
-    display: inline-block;
-    vertical-align: middle;
+#storeName{
+    margin: 0;
+    color: var(--color-font-light);
+    font-size: clamp(1.7rem, 2.4vw, 2.4rem);
+    font-weight: 500;
+    white-space: nowrap;
 }
 
+/* Main menu */
 .navbar_menu{
-    display: inline-block;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: nowrap;
 }
 
 .navbar_menu a{
-    margin: 0 0.95rem;
-    text-decoration: none;
     color: var(--color-font-light);
-    font-size: 1.55rem;
+    text-decoration: none;
+    font-size: clamp(1.1rem, 1.5vw, 1.5rem);
+    transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .navbar_menu a:hover{
-    text-decoration: underline;
+    color: var(--color-accent, #3fd18b);
+    transform: translateY(-0.08rem);
+}
+
+/* Parts dropdown */
+.navbar_dropdown{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.navbar_dropdown_btn{
+    background: none;
+    border: none;
+    color: var(--color-font-light);
+    font-size: clamp(1.1rem, 1.5vw, 1.5rem);
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+    transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.navbar_dropdown_btn:hover{
+    color: var(--color-accent, #3fd18b);
+    transform: translateY(-0.08rem);
+}
+
+.navbar_dropdown_menu{
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    min-width: 13rem;
+    max-height: 22rem;
+    overflow-y: auto;
+
+    display: none;
+    flex-direction: column;
+
+    background-color: var(--color-navbar);
+    border: 0.1rem solid rgba(255,255,255,0.2);
+    border-radius: 0.75rem;
+    padding: 0.5rem 0;
+    margin-top: 0.8rem;
+
+    box-shadow: 0 0.4rem 0.9rem rgba(0,0,0,0.25);
+    z-index: 2000;
+}
+
+.navbar_dropdown:hover .navbar_dropdown_menu,
+.navbar_dropdown:focus-within .navbar_dropdown_menu{
+    display: flex;
+}
+
+.navbar_dropdown_menu a{
+    color: var(--color-font-light);
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.65rem 1rem;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.navbar_dropdown_menu a:hover{
+    background-color: rgba(255,255,255,0.12);
+    color: var(--color-accent, #3fd18b);
+    transform: none;
+}
+
+/* Right side */
+.navbar_right-side{
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 1.7rem;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+}
+
+/* Navbar icons */
+#cart,
+#profile{
+    width: clamp(2.2rem, 2.7vw, 3rem);
+    height: clamp(2.2rem, 2.7vw, 3rem);
+
+    object-fit: contain;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 #search{
-    width: 2.2rem;
-    height: 2.2rem;
-    margin: 1.55rem;
+    width: clamp(2.2rem, 2vw, 3rem);
+    height: clamp(2.2rem, 2.7vw, 3rem);
+
+    object-fit: contain;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+#search:hover,
+#cart:hover,
+#profile:hover{
+    transform: scale(1.08);
+    opacity: 0.9;
+}
+
+/* Profile dropdown wrapper */
+.profile-menu-wrapper{
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* Smaller screens */
+@media (max-width: 55rem){
+
+    .navbar{
+        padding: 1rem 1.2rem;
+    }
+
+    .navbar_left-side{
+        gap: 2rem;
+    }
+
+    .navbar_menu{
+        gap: 1.2rem;
+    }
+
+    .navbar_right-side{
+        gap: 1rem;
+    }
+
+    .navbar_dropdown_menu{
+        min-width: 12rem;
+    }
+
+}
+
+@media (max-width: 42rem){
+
+    .navbar{
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .navbar_left-side{
+        width: 100%;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .navbar_menu{
+        gap: 1rem;
+    }
+
+    .navbar_right-side{
+        width: 100%;
+        justify-content: flex-end;
+        margin-left: 0;
+    }
+
+    .navbar_dropdown_menu{
+        left: auto;
+        right: 0;
+    }
+
 }

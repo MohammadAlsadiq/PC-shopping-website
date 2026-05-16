@@ -7,8 +7,31 @@
 
         <nav class="navbar_menu">
             <a href="home.html">Home</a>
-            <a href="home.html">PCs</a>
-            <a href="home.html">Parts</a>
+
+            <div class="navbar_dropdown">
+                <button type="button" class="navbar_dropdown_btn">
+                    Parts
+                </button>
+
+                <div class="navbar_dropdown_menu">
+                    <a href="search.html?category=CPUs">CPUs</a>
+                    <a href="search.html?category=GPUs">GPUs</a>
+                    <a href="search.html?category=Motherboards">Motherboards</a>
+                    <a href="search.html?category=RAM">RAM</a>
+                    <a href="search.html?category=Storage">Storage</a>
+                    <a href="search.html?category=Power%20Supplies">Power Supplies</a>
+                    <a href="search.html?category=Cooling">Cooling</a>
+                    <a href="search.html?category=Cases">Cases</a>
+                    <a href="search.html?category=Monitors">Monitors</a>
+                    <a href="search.html?category=Keyboards">Keyboards</a>
+                    <a href="search.html?category=Mice">Mice</a>
+                    <a href="search.html?category=Headsets">Headsets</a>
+                    <a href="search.html?category=Speakers">Speakers</a>
+                    <a href="search.html?category=Networking">Networking</a>
+                    <a href="search.html?category=Cables">Cables</a>
+                    <a href="search.html?category=Accessories">Accessories</a>
+                </div>
+            </div>
         </nav>
     </div>
 
@@ -17,8 +40,15 @@
         <img src="images/cart.png" id="cart" alt="Cart">
 
         <div class="profile-menu-wrapper">
-            <img src="images/profile.png" id="profile" alt="Profile" role="button" tabindex="0" aria-haspopup="true"
-                aria-expanded="false">
+            <img
+                src="images/profile.png"
+                id="profile"
+                alt="Profile"
+                role="button"
+                tabindex="0"
+                aria-haspopup="true"
+                aria-expanded="false"
+            >
 
             <div class="profile-dropdown" id="profileDropdown"></div>
         </div>

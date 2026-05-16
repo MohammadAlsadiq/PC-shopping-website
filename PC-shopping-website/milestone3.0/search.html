@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search | ChipShip</title>
+
+    <link rel="stylesheet" href="css_files/style.css">
+    <link rel="stylesheet" href="css_files/nav_style.css">
+    <link rel="stylesheet" href="css_files/auth.css">
+    <link rel="stylesheet" href="css_files/css-navbar_files/profile-dropdown.css">
+    <link rel="stylesheet" href="css_files/css-navbar_files/navbar-search.css">
+    <link rel="stylesheet" href="css_files/footer_style.css">
+    <link rel="stylesheet" href="css_files/search.css">
+    
+</head>
+
+<body>
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="search_page">
+
+        <section class="search_header">
+            <h1>Search Products</h1>
+        </section>
+
+        <section class="search_controls">
+
+            <form id="searchForm" class="search_form">
+                <label for="searchInput">Search</label>
+
+                <div class="search_input_row">
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search by product name or category"
+                        autocomplete="off"
+                    >
+
+                    <button type="submit" id="searchButton">
+                        Search
+                    </button>
+                </div>
+            </form>
+
+            <div class="filter_group">
+                <label for="categoryFilter">Category</label>
+
+                <select id="categoryFilter">
+                    <option value="All">All Categories</option>
+                    <option value="Desktop PCs">Desktop PCs</option>
+                    <option value="Laptops">Laptops</option>
+                    <option value="CPUs">CPUs</option>
+                    <option value="GPUs">GPUs</option>
+                    <option value="Motherboards">Motherboards</option>
+                    <option value="RAM">RAM</option>
+                    <option value="Storage">Storage</option>
+                    <option value="Power Supplies">Power Supplies</option>
+                    <option value="Cooling">Cooling</option>
+                    <option value="Cases">Cases</option>
+                    <option value="Monitors">Monitors</option>
+                    <option value="Keyboards">Keyboards</option>
+                    <option value="Mice">Mice</option>
+                    <option value="Headsets">Headsets</option>
+                    <option value="Speakers">Speakers</option>
+                    <option value="Networking">Networking</option>
+                    <option value="Cables">Cables</option>
+                    <option value="Accessories">Accessories</option>
+                </select>
+            </div>
+
+            <div class="filter_group">
+                <label for="priceSort">Sort By</label>
+
+                <select id="priceSort">
+                    <option value="default">Default</option>
+                    <option value="price-low-high">Price: Low to High</option>
+                    <option value="price-high-low">Price: High to Low</option>
+                </select>
+            </div>
+
+        </section>
+
+        <section class="search_status">
+            <p id="resultCount">Loading products...</p>
+        </section>
+
+        <section id="productsGrid" class="products_grid"></section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script type="module" src="js_files/load-layout.js"></script>
+    <script type="module" src="js_files/auth.js"></script>
+    <script type="module" src="js_files/js-navbar_files/profile-icon.js"></script>
+    <script type="module" src="js_files/js-navbar_files/navbar-search.js"></script>
+    <script type="module" src="js_files/search.js"></script>
+        
+
+</body>
+
+</html>

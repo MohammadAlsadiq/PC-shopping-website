@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart | ChipShip</title>
+
+    <link rel="stylesheet" href="css_files/style.css">
+    <link rel="stylesheet" href="css_files/nav_style.css">
+    <link rel="stylesheet" href="css_files/auth.css">
+    <link rel="stylesheet" href="css_files/css-navbar_files/profile-dropdown.css">
+    <link rel="stylesheet" href="css_files/footer_style.css">
+    <link rel="stylesheet" href="css_files/cart.css">
+    <link rel="stylesheet" href="css_files/css-navbar_files/navbar-search.css">
+
+</head>
+
+<body data-auth="required">
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="cart_page">
+
+        <section class="cart_header">
+            <h1>My Cart</h1>
+        </section>
+
+        <section class="cart_layout">
+
+            <div class="cart_items_card">
+                <div id="cartMessage" class="cart_message">Loading cart...</div>
+                <div id="cartItemsContainer" class="cart_items_container"></div>
+            </div>
+
+            <aside class="cart_summary">
+                <h2>Order Summary</h2>
+
+                <div class="summary_row">
+                    <span>Items</span>
+                    <strong id="summaryItems">0</strong>
+                </div>
+
+                <div class="summary_row">
+                    <span>Total</span>
+                    <strong id="summaryTotal">0.00 SAR</strong>
+                </div>
+
+                <button type="button" id="checkoutBtn" class="checkout_btn">
+                    Proceed to Checkout
+                </button>
+            </aside>
+
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script type="module" src="js_files/load-layout.js"></script>
+    <script type="module" src="js_files/auth.js"></script>
+    <script type="module" src="js_files/js-navbar_files/profile-icon.js"></script>
+    <script type="module" src="js_files/js-navbar_files/navbar-search.js"></script>
+
+    <script type="module" src="js_files/cart.js"></script>
+
+
+</body>
+
+</html>
