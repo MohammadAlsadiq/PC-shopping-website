@@ -1,6 +1,7 @@
 import { supabase } from "./supabaseClient.js";
 import { Auth, AuthState } from "./auth.js";
 
+const BUCKET_NAME = "items_images";
 const cartMessage = document.getElementById("cartMessage");
 const cartItemsContainer = document.getElementById("cartItemsContainer");
 const summaryItems = document.getElementById("summaryItems");
@@ -33,7 +34,19 @@ function getProductImage(imagePath) {
         return getFallbackImage();
     }
 
-    return imagePath;
+    if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+        return imagePath;
+    }
+
+    if (imagePath.startsWith("images/")) {
+        return encodeURI(imagePath);
+    }
+
+    const { data } = supabase.storage
+        .from(BUCKET_NAME)
+        .getPublicUrl(imagePath);
+
+    return data.publicUrl;
 }
 
 async function loadActiveCart() {
