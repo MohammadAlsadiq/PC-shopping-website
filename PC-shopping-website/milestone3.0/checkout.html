@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | ChipShip</title>
+
+    <link rel="stylesheet" href="css_files/style.css">
+    <link rel="stylesheet" href="css_files/nav_style.css">
+    <link rel="stylesheet" href="css_files/auth.css">
+    <link rel="stylesheet" href="css_files/css-navbar_files/profile-dropdown.css">
+    <link rel="stylesheet" href="css_files/css-navbar_files/navbar-search.css">
+    <link rel="stylesheet" href="css_files/footer_style.css">
+    <link rel="stylesheet" href="css_files/checkout.css">
+</head>
+
+<body data-auth="required">
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="checkout_page">
+
+        <section class="checkout_header">
+            <h1>Checkout</h1>
+        </section>
+
+        <section id="checkoutContent" class="checkout_layout">
+
+            <div class="checkout_main_card">
+
+                <section class="checkout_section">
+                    <h2>Delivery Address</h2>
+
+                    <p id="addressNotice" class="section_note"></p>
+
+                    <div class="input_group">
+                        <label for="addressInput">Address</label>
+                        <textarea id="addressInput" rows="4" placeholder="Enter your delivery address"></textarea>
+                        <small class="error"></small>
+                    </div>
+                </section>
+
+                <section class="checkout_section">
+                    <h2>One-Time Card Payment</h2>
+
+                    <p class="section_note">
+                        Card details are used only for this checkout and are not stored.
+                    </p>
+
+                    <form id="checkoutForm" class="checkout_form" novalidate>
+
+                        <div class="input_group">
+                            <label for="cardName">Name on Card</label>
+                            <input type="text" id="cardName" placeholder="Cardholder name">
+                            <small class="error"></small>
+                        </div>
+
+                        <div class="input_group">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                            <small class="error"></small>
+                        </div>
+
+                        <div class="card_row">
+                            <div class="input_group">
+                                <label for="cardExpiry">Expiry</label>
+                                <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5">
+                                <small class="error"></small>
+                            </div>
+
+                            <div class="input_group">
+                                <label for="cardCvv">CVV</label>
+                                <input type="password" id="cardCvv" placeholder="123" maxlength="4">
+                                <small class="error"></small>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="placeOrderBtn" class="place_order_btn">
+                            Place Order
+                        </button>
+
+                    </form>
+                </section>
+
+            </div>
+
+            <aside class="checkout_summary_card">
+
+                <h2>Order Summary</h2>
+
+                <div id="cartMessage" class="cart_message">
+                    Loading cart...
+                </div>
+
+                <div id="checkoutItems" class="checkout_items"></div>
+
+                <div class="summary_total">
+                    <span>Balance Due</span>
+                    <strong id="balanceDue">0.00 SAR</strong>
+                </div>
+
+            </aside>
+
+        </section>
+
+        <section id="confirmationContent" class="confirmation_content hidden">
+
+            <div class="confirmation_box">
+                <h1>Payment Successful!</h1>
+                <p>Your order has been placed successfully.</p>
+                <p id="orderNumberText"></p>
+            </div>
+
+            <div class="summary_after_order">
+                <h2>Purchased Products</h2>
+
+                <div id="confirmedItems" class="confirmed_items"></div>
+
+                <div class="confirmed_total">
+                    Total: <span id="confirmedTotal">0.00 SAR</span>
+                </div>
+
+                <a href="home.html" class="back_home_btn">
+                    Back to Home
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script type="module" src="js_files/load-layout.js"></script>
+    <script type="module" src="js_files/auth.js"></script>
+    <script type="module" src="js_files/js-navbar_files/profile-icon.js"></script>
+    <script type="module" src="js_files/js-navbar_files/navbar-search.js"></script>
+    <script type="module" src="js_files/checkout.js"></script>
+
+</body>
+
+</html>

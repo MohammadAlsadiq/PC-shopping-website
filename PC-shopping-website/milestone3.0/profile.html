@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="css_files/nav_style.css">
     <link rel="stylesheet" href="css_files/auth.css">
     <link rel="stylesheet" href="css_files/css-navbar_files/profile-dropdown.css">
+    <link rel="stylesheet" href="css_files/css-navbar_files/navbar-search.css">
     <link rel="stylesheet" href="css_files/footer_style.css">
     <link rel="stylesheet" href="css_files/profile.css">
-    <link rel="stylesheet" href="css_files/css-navbar_files/navbar-search.css">
 </head>
 
 <body data-auth="required">
@@ -76,6 +76,7 @@
                             <th>Order ID</th>
                             <th>Total</th>
                             <th>Date</th>
+                            <th>Items</th>
                         </tr>
                     </thead>
 
@@ -93,12 +94,13 @@
 
             <div class="modal_header">
                 <h2>Edit My Info</h2>
+
                 <button type="button" id="closeEditProfileBtn" class="modal_close_btn">
                     ×
                 </button>
             </div>
 
-            <form id="editProfileForm" class="edit_profile_form">
+            <form id="editProfileForm" class="edit_profile_form" novalidate>
 
                 <div class="input_group">
                     <label for="editFirstName">First Name</label>
@@ -134,14 +136,35 @@
 
     </div>
 
+    <div class="modal_overlay" id="orderItemsModal" aria-hidden="true">
+
+        <div class="modal_box order_items_modal_box">
+
+            <div class="modal_header">
+                <h2 id="orderItemsModalTitle">Order Items</h2>
+
+                <button type="button" id="closeOrderItemsBtn" class="modal_close_btn">
+                    ×
+                </button>
+            </div>
+
+            <div id="orderItemsMessage" class="orders_message">
+                Loading items...
+            </div>
+
+            <div class="order_items_popup_list" id="orderItemsPopupList"></div>
+
+        </div>
+
+    </div>
+
     <div id="footer-placeholder"></div>
 
     <script type="module" src="js_files/load-layout.js"></script>
     <script type="module" src="js_files/auth.js"></script>
     <script type="module" src="js_files/js-navbar_files/profile-icon.js"></script>
     <script type="module" src="js_files/js-navbar_files/navbar-search.js"></script>
-
-     <script type="module" src="js_files/profile.js"></script>
+    <script type="module" src="js_files/profile.js"></script>
 
 </body>
 

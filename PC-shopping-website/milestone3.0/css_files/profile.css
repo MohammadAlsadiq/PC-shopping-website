@@ -156,6 +156,20 @@
     background-color: #f7f7f7;
 }
 
+.order_items_btn{
+    background-color: var(--color-navbar);
+    color: var(--color-font-light);
+    border: none;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.95rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.order_items_btn:hover{
+    background-color: #14313a;
+}
+
 .modal_overlay{
     position: fixed;
     inset: 0;
@@ -181,6 +195,12 @@
     padding: 25px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     box-sizing: border-box;
+}
+
+.order_items_modal_box{
+    max-width: 42rem;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .modal_header{
@@ -256,6 +276,35 @@
     margin-top: 10px;
 }
 
+.order_items_popup_list{
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.order_popup_item{
+    background-color: #ffffff;
+    border: 0.0625rem solid #dddddd;
+    border-radius: 0.75rem;
+    padding: 1rem;
+}
+
+.order_popup_item h3{
+    margin: 0 0 0.5rem 0;
+    color: var(--color-font-dark);
+    font-size: 1.1rem;
+}
+
+.order_popup_item p{
+    margin: 0.25rem 0;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.order_popup_item strong{
+    color: var(--color-font-dark);
+}
+
 button:disabled{
     opacity: 0.6;
     cursor: not-allowed;
@@ -295,6 +344,16 @@ button:disabled{
 
     .save_btn,
     .cancel_btn{
+        width: 100%;
+    }
+
+    .orders_table th,
+    .orders_table td{
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .order_items_btn{
         width: 100%;
     }
 

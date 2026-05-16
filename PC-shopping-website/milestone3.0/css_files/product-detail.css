@@ -142,4 +142,9 @@
     .add-cart-btn {
         width: 100%;
     }
+
+    .add-cart-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
 }

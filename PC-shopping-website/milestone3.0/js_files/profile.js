@@ -21,6 +21,12 @@ const ordersMessage = document.getElementById("ordersMessage");
 const ordersTable = document.getElementById("ordersTable");
 const ordersTableBody = document.getElementById("ordersTableBody");
 
+const orderItemsModal = document.getElementById("orderItemsModal");
+const closeOrderItemsBtn = document.getElementById("closeOrderItemsBtn");
+const orderItemsModalTitle = document.getElementById("orderItemsModalTitle");
+const orderItemsMessage = document.getElementById("orderItemsMessage");
+const orderItemsPopupList = document.getElementById("orderItemsPopupList");
+
 const lettersOnly = /^[A-Za-z]+$/;
 
 let handlersReady = false;
@@ -214,17 +220,113 @@ async function loadOrders() {
 
     data.forEach(function (order) {
         const row = document.createElement("tr");
-
         const date = order.date ? new Date(order.date).toLocaleString() : "Unknown date";
 
         row.innerHTML = `
             <td>#${order.id}</td>
             <td>${Number(order.total).toFixed(2)} SAR</td>
             <td>${date}</td>
+            <td>
+                <button type="button" class="order_items_btn" data-order-id="${order.id}">
+                    View Items
+                </button>
+            </td>
         `;
 
         ordersTableBody.appendChild(row);
     });
+
+    setupOrderItemsButtons();
+}
+
+function setupOrderItemsButtons() {
+    const buttons = document.querySelectorAll(".order_items_btn");
+
+    buttons.forEach(function (button) {
+        button.addEventListener("click", async function () {
+            const orderId = button.dataset.orderId;
+            await openOrderItemsModal(orderId);
+        });
+    });
+}
+
+async function openOrderItemsModal(orderId) {
+    orderItemsModalTitle.textContent = `Order #${orderId} Items`;
+    orderItemsMessage.style.display = "block";
+    orderItemsMessage.textContent = "Loading items...";
+    orderItemsPopupList.innerHTML = "";
+
+    orderItemsModal.classList.add("show");
+    orderItemsModal.setAttribute("aria-hidden", "false");
+
+    const { data: orderedItems, error: orderedItemsError } = await supabase
+        .schema("store")
+        .from("ordereditems")
+        .select("itemid, quantity, price_at_time")
+        .eq("orderid", orderId);
+
+    if (orderedItemsError) {
+        console.error("Ordered items error:", orderedItemsError.message);
+        orderItemsMessage.textContent = "Could not load ordered items.";
+        return;
+    }
+
+    if (!orderedItems || orderedItems.length === 0) {
+        orderItemsMessage.textContent = "No items found for this order.";
+        return;
+    }
+
+    const itemIds = orderedItems.map(function (orderedItem) {
+        return orderedItem.itemid;
+    });
+
+    const { data: products, error: productsError } = await supabase
+        .schema("store")
+        .from("items")
+        .select("id, name, category, price")
+        .in("id", itemIds);
+
+    if (productsError) {
+        console.error("Products error:", productsError.message);
+        orderItemsMessage.textContent = "Could not load product details.";
+        return;
+    }
+
+    const productsById = {};
+
+    products.forEach(function (product) {
+        productsById[product.id] = product;
+    });
+
+    orderItemsMessage.style.display = "none";
+
+    orderedItems.forEach(function (orderedItem) {
+        const product = productsById[orderedItem.itemid];
+
+        const title = product?.name || "Unknown Product";
+        const category = product?.category || "N/A";
+        const quantity = Number(orderedItem.quantity || 1);
+        const unitPrice = Number(orderedItem.price_at_time || product?.price || 0);
+        const subtotal = unitPrice * quantity;
+
+        const itemElement = document.createElement("div");
+        itemElement.className = "order_popup_item";
+
+        itemElement.innerHTML = `
+            <h3>${escapeHTML(title)}</h3>
+            <p><strong>Category:</strong> ${escapeHTML(category)}</p>
+            <p><strong>Quantity:</strong> ${quantity}</p>
+            <p><strong>Unit Price:</strong> ${unitPrice.toFixed(2)} SAR</p>
+            <p><strong>Subtotal:</strong> ${subtotal.toFixed(2)} SAR</p>
+        `;
+
+        orderItemsPopupList.appendChild(itemElement);
+    });
+}
+
+function closeOrderItemsModal() {
+    orderItemsModal.classList.remove("show");
+    orderItemsModal.setAttribute("aria-hidden", "true");
 }
 
 async function deleteAccount() {
@@ -234,7 +336,7 @@ async function deleteAccount() {
         return;
     }
 
-    const secondConfirm = prompt('Type DELETE to confirm account deletion.');
+    const secondConfirm = prompt("Type DELETE to confirm account deletion.");
 
     if (secondConfirm !== "DELETE") {
         return;
@@ -275,9 +377,18 @@ function setupHandlers() {
         }
     });
 
+    closeOrderItemsBtn.addEventListener("click", closeOrderItemsModal);
+
+    orderItemsModal.addEventListener("click", function (event) {
+        if (event.target === orderItemsModal) {
+            closeOrderItemsModal();
+        }
+    });
+
     document.addEventListener("keydown", function (event) {
         if (event.key === "Escape") {
             closeEditModal();
+            closeOrderItemsModal();
         }
     });
 
@@ -288,6 +399,15 @@ function setupHandlers() {
     editProfileForm.addEventListener("submit", saveProfileChanges);
 
     deleteAccountBtn.addEventListener("click", deleteAccount);
+}
+
+function escapeHTML(value) {
+    return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 }
 
 Auth.onReady(async function () {
