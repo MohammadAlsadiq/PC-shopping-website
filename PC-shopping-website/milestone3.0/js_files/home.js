@@ -154,7 +154,7 @@ function createProductCard(product) {
     productImage.alt = `${product.name || "Product"} image`;
 
     productImage.addEventListener("error", () => {
-        productImage.src = "images/pc.png";
+        productImage.src = "images/logo.png";
     });
 
     const productInfo = document.createElement("div");
@@ -220,7 +220,7 @@ function showErrorInRows(message) {
 
 function getPublicImageUrl(imagePath) {
     if (!imagePath) {
-        return "images/pc.png";
+        return "images/logo.png";
     }
 
     if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {

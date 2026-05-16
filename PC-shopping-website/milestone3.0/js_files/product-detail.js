@@ -40,7 +40,7 @@ async function loadProductDetails() {
     productImage.alt = `${item.name || "Product"} image`;
 
     productImage.addEventListener("error", () => {
-        productImage.src = "images/pc.png";
+        productImage.src = "images/logo.png";
     });
 
     document.title = `${item.name || "Product Details"} | ChipShip`;
@@ -51,13 +51,13 @@ function showError(message) {
     productName.textContent = "Product not found";
     productDetails.textContent = "";
     productPrice.textContent = "$0.00";
-    productImage.src = "images/pc.png";
+    productImage.src = "images/logo.png";
     productImage.alt = "Product image";
 }
 
 function getPublicImageUrl(imagePath) {
     if (!imagePath) {
-        return "images/pc.png";
+        return "images/logo.png";
     }
 
     if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
