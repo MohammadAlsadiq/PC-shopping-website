@@ -17,8 +17,8 @@ const profileMenus = {
 
     admin: [
         { text: "Profile", href: "profile.html" },
-        { text: "Orders", href: "orders.html" },
-        { text: "Dashboard", href: "dashboard.html" },
+        // { text: "Orders", href: "orders.html" },
+        { text: "Dashboard", href: "admin-dashboard.html" },
         { text: "Log Out", action: "logout" }
     ]
 };
@@ -26,6 +26,10 @@ const profileMenus = {
 function getProfileMenuType() {
     if (!AuthState.isLoggedIn) {
         return "guest";
+    }
+
+    if (AuthState.isAdmin === true) {
+        return "admin";
     }
 
     return "user";
@@ -40,13 +44,6 @@ function renderProfileDropdown() {
     const menuItems = profileMenus[menuType];
 
     profileDropdown.innerHTML = "";
-
-    // if (AuthState.isLoggedIn) {
-    //     const nameElement = document.createElement("p");
-    //     nameElement.className = "dropdown_username";
-    //     nameElement.textContent = Auth.getDisplayName();
-    //     profileDropdown.appendChild(nameElement);
-    // }
 
     menuItems.forEach(function (item) {
         if (item.action === "logout") {
@@ -116,7 +113,7 @@ function setupCartIcon() {
     cartIcon.dataset.cartReady = "true";
     cartIcon.style.cursor = "pointer";
 
-        cartIcon.addEventListener("click", function () {
+    cartIcon.addEventListener("click", function () {
         if (AuthState.isLoggedIn) {
             window.location.href = "cart.html";
         } else {

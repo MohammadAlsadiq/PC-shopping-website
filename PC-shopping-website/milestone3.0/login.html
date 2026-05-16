@@ -5,12 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Login | ChipShip</title>
 
     <link rel="stylesheet" href="css_files/style.css">
     <link rel="stylesheet" href="css_files/login.css">
-
     <link rel="stylesheet" href="css_files/nav_style.css">
     <link rel="stylesheet" href="css_files/footer_style.css">
 </head>
@@ -22,7 +20,7 @@
         <div class="navbar_left-side">
 
             <div class="navbar_logo">
-                <img src="images/logo.png" class="logo" alt="Chip Chip Logo">
+                <img src="images/logo.png" class="logo" alt="ChipShip Logo">
                 <p id="storeName">ChipShip</p>
             </div>
 
@@ -39,47 +37,45 @@
                 <h1>Welcome Back</h1>
 
                 <p class="login_subtext">
-                    Login to your Chip Chip account
+                    Login to your ChipShip account
                 </p>
 
-                <form class="login_form">
+                <form class="login_form" novalidate>
 
-                    <!-- Email -->
                     <div class="input_group">
-                        <label>Email</label>
-                        <input type="email"
-                               placeholder="Enter your email"
-                               required>
+                        <label for="loginEmail">Email</label>
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+                        <small class="error"></small>
                     </div>
 
-                    <!-- Password -->
                     <div class="input_group">
-                        <label>Password</label>
-                        <input type="password"
-                               placeholder="Enter your password"
-                               required>
+                        <label for="loginPassword">Password</label>
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+                        <small class="error"></small>
                     </div>
 
-                    <!-- Login Options -->
-                    <div class="login_options">
-
-                        <label class="remember_me">
-                            <input type="checkbox">
-                            Remember me
-                        </label>
-
+                    <!-- <div class="login_options">
                         <a href="#" class="forgot_password">
                             Forgot password?
                         </a>
+                    </div> -->
 
-                    </div>
-
-                    <!-- Button -->
                     <button type="submit" class="login_btn">
                         Login
                     </button>
 
-                    <!-- Register Link -->
                     <p class="register_link">
                         Don’t have an account?
                         <a href="register.html">Register</a>
@@ -100,6 +96,8 @@
         </div>
 
     </footer>
+
+    <script type="module" src="js_files/login.js"></script>
 
 </body>
 
