@@ -238,10 +238,10 @@ function formatPrice(price) {
     const numericPrice = Number(price);
 
     if (Number.isNaN(numericPrice)) {
-        return "0.00SR";
+        return "0.00 SAR";
     }
 
-    return `${numericPrice.toFixed(2)}SR`;
+    return `${numericPrice.toFixed(2)} SAR`;
 }
 
 loadHomeItems();

@@ -336,7 +336,7 @@ function showError(message) {
     productError.textContent = message;
     productName.textContent = "Product not found";
     productDetails.textContent = "";
-    productPrice.textContent = "$0.00";
+    productPrice.textContent = "0.00 SAR";
     productImage.src = "images/logo.png";
     productImage.alt = "Product image";
 
@@ -375,8 +375,8 @@ function formatPrice(price) {
     const numericPrice = Number(price);
 
     if (Number.isNaN(numericPrice)) {
-        return "$0.00";
+        return "0.00 SAR";
     }
 
-    return `$${numericPrice.toFixed(2)}`;
+    return `${numericPrice.toFixed(2)} SAR`;
 }
