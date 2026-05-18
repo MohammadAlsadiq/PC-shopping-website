@@ -1,6 +1,8 @@
 import { supabase } from "./supabaseClient.js";
 import { Auth, AuthState } from "./auth.js";
 
+const BUCKET_NAME = "items_images";
+
 const searchForm = document.getElementById("searchForm");
 const searchInput = document.getElementById("searchInput");
 const categoryFilter = document.getElementById("categoryFilter");
@@ -8,15 +10,13 @@ const priceSort = document.getElementById("priceSort");
 const resultCount = document.getElementById("resultCount");
 const productsGrid = document.getElementById("productsGrid");
 
-const fallbackImage = encodeURI("images/ChipShip logo design with microchip focus.png");
-
 let loadedItems = [];
 let searchResults = [];
 let loadedKeyword = "";
 
 function getUrlSearchValue() {
     const params = new URLSearchParams(window.location.search);
-    return params.get("q") || "";
+    return params.get("q") || params.get("keyword") || "";
 }
 
 function getUrlCategoryValue() {
@@ -151,9 +151,15 @@ function applyLocalFilters() {
             return Number(b.price) - Number(a.price);
         });
     } else {
-        filteredItems.sort(function (a, b) {
-            return b.search_score - a.search_score;
-        });
+        if (keyword === "") {
+            filteredItems.sort(function (a, b) {
+                return Number(a.id) - Number(b.id);
+            });
+        } else {
+            filteredItems.sort(function (a, b) {
+                return b.search_score - a.search_score;
+            });
+        }
     }
 
     searchResults = filteredItems;
@@ -190,19 +196,13 @@ async function fetchItemsFromDatabase(keyword) {
         .schema("store")
         .from("items")
         .select("id, name, storedunits, category, price, image, product_details")
-        .limit(120);
+        .order("id", { ascending: true });
 
     if (cleanKeyword !== "") {
         const orConditions = buildSearchOrConditions(cleanKeyword);
         query = query.or(orConditions);
     } else if (selectedCategory !== "All") {
         query = query.eq("category", selectedCategory);
-    } else {
-        loadedItems = [];
-        searchResults = [];
-        resultCount.textContent = "Enter a search term or choose a category.";
-        renderProducts();
-        return;
     }
 
     const { data, error } = await query;
@@ -227,10 +227,6 @@ function shouldFetchNewKeyword() {
         return true;
     }
 
-    if (currentKeyword === "" && loadedItems.length === 0 && categoryFilter.value !== "All") {
-        return true;
-    }
-
     return false;
 }
 
@@ -246,12 +242,20 @@ function formatMoney(value) {
     return `${Number(value || 0).toFixed(2)} SAR`;
 }
 
-function getProductImage(imagePath) {
-    if (!imagePath || imagePath.trim() === "") {
-        return fallbackImage;
+function getPublicImageUrl(imagePath) {
+    if (!imagePath) {
+        return "images/logo.png";
     }
 
-    return imagePath;
+    if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+        return imagePath;
+    }
+
+    const { data } = supabase.storage
+        .from(BUCKET_NAME)
+        .getPublicUrl(imagePath);
+
+    return data.publicUrl;
 }
 
 function escapeHTML(value) {
@@ -267,20 +271,11 @@ function renderProducts() {
     productsGrid.innerHTML = "";
 
     if (searchResults.length === 0) {
-        if (loadedItems.length === 0) {
-            resultCount.textContent = "No products loaded yet.";
-        } else {
-            resultCount.textContent = "0 products found.";
-        }
+        resultCount.textContent = "0 products found.";
 
         const emptyMessage = document.createElement("div");
         emptyMessage.className = "no_results";
-
-        if (loadedItems.length === 0) {
-            emptyMessage.textContent = "Search by product name, category, or choose a category.";
-        } else {
-            emptyMessage.textContent = "No products matched your filters.";
-        }
+        emptyMessage.textContent = "No products matched your filters.";
 
         productsGrid.appendChild(emptyMessage);
         return;
@@ -297,9 +292,8 @@ function renderProducts() {
         card.innerHTML = `
             <img
                 class="product_image"
-                src="${escapeHTML(getProductImage(item.image))}"
-                alt="${escapeHTML(item.name)}"
-                onerror="this.onerror=null; this.src='${fallbackImage}'"
+                src="${escapeHTML(getPublicImageUrl(item.image))}"
+                alt="${escapeHTML(item.name || "Product")} image"
             >
 
             <div class="product_info">
@@ -310,20 +304,26 @@ function renderProducts() {
             </div>
 
             <div class="product_actions">
-                <a class="view_btn" href="product-details.html?id=${item.id}">
+                <a class="view_btn" href="product-detail.html?id=${encodeURIComponent(item.id)}">
                     View
                 </a>
 
                 <button
                     type="button"
                     class="add_cart_btn"
-                    data-item-id="${item.id}"
+                    data-item-id="${escapeHTML(item.id)}"
                     ${inStock ? "" : "disabled"}
                 >
                     ${inStock ? "Add to Cart" : "Out of Stock"}
                 </button>
             </div>
         `;
+
+        const productImage = card.querySelector(".product_image");
+
+        productImage.addEventListener("error", function () {
+            productImage.src = "images/logo.png";
+        });
 
         productsGrid.appendChild(card);
     });
@@ -470,13 +470,7 @@ searchForm.addEventListener("submit", async function (event) {
 });
 
 categoryFilter.addEventListener("change", async function () {
-    const keyword = cleanSearchTerm(searchInput.value.trim());
-
-    if (keyword === "") {
-        await fetchItemsFromDatabase("");
-    } else {
-        applyLocalFilters();
-    }
+    await fetchItemsFromDatabase(searchInput.value.trim());
 });
 
 priceSort.addEventListener("change", applyLocalFilters);
@@ -491,16 +485,8 @@ Auth.onReady(async function () {
     setInitialValuesFromUrl();
 
     const initialKeyword = searchInput.value.trim();
-    const initialCategory = categoryFilter.value;
 
-    if (initialKeyword !== "" || initialCategory !== "All") {
-        await fetchItemsFromDatabase(initialKeyword);
-    } else {
-        loadedItems = [];
-        searchResults = [];
-        resultCount.textContent = "Enter a search term or choose a category.";
-        renderProducts();
-    }
+    await fetchItemsFromDatabase(initialKeyword);
 });
 
 window.SearchPage = {

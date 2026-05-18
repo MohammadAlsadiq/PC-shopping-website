@@ -40,6 +40,22 @@
                         <div class="price-action-row">
                             <p id="productPrice" class="product-price">$0.00</p>
 
+                            <div class="product-quantity-control">
+                                <label class="quantity-label" for="productQuantityInput">Qty</label>
+
+                                <button id="decreaseQuantityBtn" type="button">-</button>
+
+                                <input
+                                    id="productQuantityInput"
+                                    type="number"
+                                    min="1"
+                                    step="1"
+                                    value="1"
+                                >
+
+                                <button id="increaseQuantityBtn" type="button">+</button>
+                            </div>
+
                             <button id="addToCartBtn" class="add-cart-btn" type="button">
                                 Add to Cart
                             </button>

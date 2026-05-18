@@ -26,6 +26,7 @@
 
 /* Body base */
 body {
+    padding-top: 7rem;
     margin: 0;
     font-family: var(--font-body);
     background-color: var(--color-bg);
@@ -35,7 +36,6 @@ body {
 main {
     background-color: var(--color-bg);
     min-height: 80%;
-    padding: 3%;
 }
 
 /* Footer base */

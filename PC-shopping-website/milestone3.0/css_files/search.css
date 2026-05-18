@@ -110,11 +110,11 @@
 }
 
 .product_image{
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
+    width: 55%;
+    height: 7rem;
+    object-fit: contain;
+    align-self: center;
     border-radius: 0.75rem;
-    background-color: #dddddd;
 }
 
 .product_info{
@@ -243,6 +243,11 @@
 
     .products_grid{
         grid-template-columns: 1fr;
+    }
+
+    .product_image{
+        width: 45%;
+        height: 7rem;
     }
 
     .product_actions{
