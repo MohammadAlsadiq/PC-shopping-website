@@ -29,7 +29,14 @@ function setSuccess(input) {
 }
 
 function validateFirstName() {
-    if (!lettersOnly.test(firstName.value.trim())) {
+    const value = firstName.value.trim();
+
+    if (value === "") {
+        setError(firstName, "First name is required");
+        return false;
+    }
+
+    if (!lettersOnly.test(value)) {
         setError(firstName, "Only letters allowed");
         return false;
     }
@@ -39,12 +46,58 @@ function validateFirstName() {
 }
 
 function validateLastName() {
-    if (!lettersOnly.test(lastName.value.trim())) {
+    const value = lastName.value.trim();
+
+    if (value === "") {
+        setError(lastName, "Last name is required");
+        return false;
+    }
+
+    if (!lettersOnly.test(value)) {
         setError(lastName, "Only letters allowed");
         return false;
     }
 
     setSuccess(lastName);
+    return true;
+}
+
+function isValidEmailFormat(emailValue) {
+    const value = emailValue.trim();
+
+    if (value === "") {
+        return false;
+    }
+
+    if (value.includes(" ")) {
+        return false;
+    }
+
+    const parts = value.split("@");
+
+    if (parts.length !== 2) {
+        return false;
+    }
+
+    const beforeAt = parts[0];
+    const afterAt = parts[1];
+
+    if (beforeAt === "" || afterAt === "") {
+        return false;
+    }
+
+    if (!afterAt.includes(".")) {
+        return false;
+    }
+
+    const domainParts = afterAt.split(".");
+
+    for (let i = 0; i < domainParts.length; i++) {
+        if (domainParts[i] === "") {
+            return false;
+        }
+    }
+
     return true;
 }
 
@@ -56,8 +109,8 @@ function validateEmail() {
         return false;
     }
 
-    if (!email.checkValidity()) {
-        setError(email, "Enter a valid email address");
+    if (!isValidEmailFormat(emailValue)) {
+        setError(email, "Enter a valid email format");
         return false;
     }
 
@@ -99,6 +152,21 @@ function validateForm() {
            confirmPasswordValid;
 }
 
+async function checkAccountAlreadyExists(emailValue) {
+    const { data, error } = await supabase
+        .schema("store")
+        .rpc("auth_email_exists", {
+            check_email: emailValue
+        });
+
+    if (error) {
+        console.error("Email exists check error:", error.message);
+        throw error;
+    }
+
+    return data === true;
+}
+
 firstName.addEventListener("input", validateFirstName);
 lastName.addEventListener("input", validateLastName);
 email.addEventListener("input", validateEmail);
@@ -115,12 +183,30 @@ form.addEventListener("submit", async function (e) {
     }
 
     registerButton.disabled = true;
-    registerButton.innerText = "Creating account...";
+    registerButton.innerText = "Checking email...";
 
     const firstNameValue = firstName.value.trim();
     const lastNameValue = lastName.value.trim();
-    const emailValue = email.value.trim();
+    const emailValue = email.value.trim().toLowerCase();
     const passwordValue = password.value;
+
+    try {
+        const accountExists = await checkAccountAlreadyExists(emailValue);
+
+        if (accountExists) {
+            setError(email, "account already exists");
+            registerButton.disabled = false;
+            registerButton.innerText = "Register";
+            return;
+        }
+    } catch (error) {
+        alert("Could not check email. Please try again.");
+        registerButton.disabled = false;
+        registerButton.innerText = "Register";
+        return;
+    }
+
+    registerButton.innerText = "Creating account...";
 
     const { data, error } = await supabase.auth.signUp({
         email: emailValue,
@@ -134,20 +220,22 @@ form.addEventListener("submit", async function (e) {
     });
 
     if (error) {
-    const message = error.message.toLowerCase();
+        const message = error.message.toLowerCase();
 
-    if (message.includes("already registered") || message.includes("already exists")) {
-        setError(email, "This email already has an account");
-    } else if (message.includes("rate limit")) {
-        setError(email, "Too many signup attempts. Please wait and try again later.");
-    } else {
-        alert(error.message);
+        if (
+            message.includes("already registered") ||
+            message.includes("already exists") ||
+            message.includes("user already registered")
+        ) {
+            setError(email, "account already exists");
+        } else {
+            alert(error.message);
+        }
+
+        registerButton.disabled = false;
+        registerButton.innerText = "Register";
+        return;
     }
-
-    registerButton.disabled = false;
-    registerButton.innerText = "Register";
-    return;
-}
 
     alert("Account created successfully.");
     window.location.href = "home.html";

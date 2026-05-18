@@ -10,6 +10,10 @@ const productImage = document.getElementById("productImage");
 const productError = document.getElementById("productError");
 const addToCartBtn = document.getElementById("addToCartBtn");
 
+const decreaseQuantityBtn = document.getElementById("decreaseQuantityBtn");
+const increaseQuantityBtn = document.getElementById("increaseQuantityBtn");
+const productQuantityInput = document.getElementById("productQuantityInput");
+
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
 
@@ -39,7 +43,7 @@ async function loadProductDetails() {
     currentItem = item;
 
     productName.textContent = item.name || "Unnamed Product";
-    productDetails.textContent = item.product_details || "No product details available.";
+    productDetails.textContent = formatProductDetails(item.product_details);
     productPrice.textContent = formatPrice(item.price);
 
     productImage.src = getPublicImageUrl(item.image);
@@ -52,6 +56,7 @@ async function loadProductDetails() {
     document.title = `${item.name || "Product Details"} | ChipShip`;
 
     updateAddToCartButton(item);
+    updateQuantityControls(item);
 }
 
 function updateAddToCartButton(item) {
@@ -66,6 +71,96 @@ function updateAddToCartButton(item) {
     addToCartBtn.disabled = false;
     addToCartBtn.textContent = "Add to Cart";
 }
+
+function updateQuantityControls(item) {
+    const stock = Number(item.storedunits || 0);
+
+    if (stock <= 0) {
+        productQuantityInput.min = "0";
+        productQuantityInput.max = "0";
+        productQuantityInput.value = "0";
+
+        decreaseQuantityBtn.disabled = true;
+        increaseQuantityBtn.disabled = true;
+        productQuantityInput.disabled = true;
+
+        return;
+    }
+
+    productQuantityInput.min = "1";
+    productQuantityInput.max = String(stock);
+    productQuantityInput.disabled = false;
+
+    const quantity = getSelectedQuantity();
+
+    decreaseQuantityBtn.disabled = quantity <= 1;
+    increaseQuantityBtn.disabled = quantity >= stock;
+}
+
+function getSelectedQuantity() {
+    const stock = Number(currentItem?.storedunits || 0);
+    let quantity = Math.floor(Number(productQuantityInput.value));
+
+    if (stock <= 0) {
+        productQuantityInput.value = "0";
+        return 0;
+    }
+
+    if (Number.isNaN(quantity) || quantity < 1) {
+        quantity = 1;
+    }
+
+    if (quantity > stock) {
+        quantity = stock;
+    }
+
+    productQuantityInput.value = String(quantity);
+
+    return quantity;
+}
+
+function setQuantityControlsDisabled(isDisabled) {
+    decreaseQuantityBtn.disabled = isDisabled;
+    increaseQuantityBtn.disabled = isDisabled;
+    productQuantityInput.disabled = isDisabled;
+}
+
+decreaseQuantityBtn.addEventListener("click", function () {
+    if (!currentItem) {
+        return;
+    }
+
+    const currentQuantity = getSelectedQuantity();
+
+    if (currentQuantity > 1) {
+        productQuantityInput.value = String(currentQuantity - 1);
+    }
+
+    updateQuantityControls(currentItem);
+});
+
+increaseQuantityBtn.addEventListener("click", function () {
+    if (!currentItem) {
+        return;
+    }
+
+    const stock = Number(currentItem.storedunits || 0);
+    const currentQuantity = getSelectedQuantity();
+
+    if (currentQuantity < stock) {
+        productQuantityInput.value = String(currentQuantity + 1);
+    }
+
+    updateQuantityControls(currentItem);
+});
+
+productQuantityInput.addEventListener("change", function () {
+    if (!currentItem) {
+        return;
+    }
+
+    updateQuantityControls(currentItem);
+});
 
 addToCartBtn.addEventListener("click", async function () {
     if (!currentItem) {
@@ -89,8 +184,18 @@ function redirectGuestToLogin() {
 }
 
 async function addCurrentItemToCart() {
+    const quantityToAdd = getSelectedQuantity();
+
+    if (quantityToAdd < 1) {
+        alert("This product is out of stock.");
+        updateAddToCartButton(currentItem);
+        updateQuantityControls(currentItem);
+        return;
+    }
+
     addToCartBtn.disabled = true;
     addToCartBtn.textContent = "Adding...";
+    setQuantityControlsDisabled(true);
 
     try {
         const activeCart = await getOrCreateActiveCart();
@@ -107,16 +212,25 @@ async function addCurrentItemToCart() {
             throw existingCartItemError;
         }
 
+        let wasAdded = false;
+
         if (existingCartItem) {
-            await increaseExistingCartItem(existingCartItem);
+            wasAdded = await increaseExistingCartItem(existingCartItem, quantityToAdd);
         } else {
-            await insertNewCartItem(activeCart.id);
+            wasAdded = await insertNewCartItem(activeCart.id, quantityToAdd);
+        }
+
+        if (!wasAdded) {
+            updateAddToCartButton(currentItem);
+            updateQuantityControls(currentItem);
+            return;
         }
 
         addToCartBtn.textContent = "Added";
 
         setTimeout(function () {
             updateAddToCartButton(currentItem);
+            updateQuantityControls(currentItem);
         }, 900);
 
     } catch (error) {
@@ -124,6 +238,7 @@ async function addCurrentItemToCart() {
         alert("Could not add item to cart.");
 
         updateAddToCartButton(currentItem);
+        updateQuantityControls(currentItem);
     }
 }
 
@@ -161,15 +276,14 @@ async function getOrCreateActiveCart() {
     return newCart;
 }
 
-async function increaseExistingCartItem(existingCartItem) {
+async function increaseExistingCartItem(existingCartItem, quantityToAdd) {
     const currentQuantity = Number(existingCartItem.quantity);
-    const newQuantity = currentQuantity + 1;
+    const newQuantity = currentQuantity + quantityToAdd;
     const availableStock = Number(currentItem.storedunits || 0);
 
     if (newQuantity > availableStock) {
         alert("You cannot add more than the available stock.");
-        updateAddToCartButton(currentItem);
-        return;
+        return false;
     }
 
     const { error } = await supabase
@@ -184,15 +298,21 @@ async function increaseExistingCartItem(existingCartItem) {
     if (error) {
         throw error;
     }
+
+    return true;
 }
 
-async function insertNewCartItem(cartId) {
+async function insertNewCartItem(cartId, quantityToAdd) {
     const availableStock = Number(currentItem.storedunits || 0);
 
     if (availableStock <= 0) {
         alert("This product is out of stock.");
-        updateAddToCartButton(currentItem);
-        return;
+        return false;
+    }
+
+    if (quantityToAdd > availableStock) {
+        alert("You cannot add more than the available stock.");
+        return false;
     }
 
     const { error } = await supabase
@@ -201,25 +321,30 @@ async function insertNewCartItem(cartId) {
         .insert({
             cartid: cartId,
             itemid: currentItem.id,
-            quantity: 1,
+            quantity: quantityToAdd,
             price_at_time: currentItem.price
         });
 
     if (error) {
         throw error;
     }
+
+    return true;
 }
 
 function showError(message) {
     productError.textContent = message;
     productName.textContent = "Product not found";
     productDetails.textContent = "";
-    productPrice.textContent = "$0.00";
+    productPrice.textContent = "0.00 SAR";
     productImage.src = "images/logo.png";
     productImage.alt = "Product image";
 
     addToCartBtn.disabled = true;
     addToCartBtn.textContent = "Unavailable";
+
+    productQuantityInput.value = "0";
+    setQuantityControlsDisabled(true);
 }
 
 function getPublicImageUrl(imagePath) {
@@ -238,12 +363,20 @@ function getPublicImageUrl(imagePath) {
     return data.publicUrl;
 }
 
+function formatProductDetails(details) {
+    if (!details) {
+        return "No product details available.";
+    }
+
+    return details.replaceAll("\\n", "\n");
+}
+
 function formatPrice(price) {
     const numericPrice = Number(price);
 
     if (Number.isNaN(numericPrice)) {
-        return "$0.00";
+        return "0.00 SAR";
     }
 
-    return `$${numericPrice.toFixed(2)}`;
+    return `${numericPrice.toFixed(2)} SAR`;
 }

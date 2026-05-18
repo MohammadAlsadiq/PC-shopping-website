@@ -5,14 +5,12 @@
     <title>Home | ChipShip</title>
 
     <link rel="stylesheet" href="css_files/style.css">
-<link rel="stylesheet" href="css_files/nav_style.css">
-<link rel="stylesheet" href="css_files/auth.css">
-<link rel="stylesheet" href="css_files/css-navbar_files/profile-dropdown.css">
-<link rel="stylesheet" href="css_files/home.css">
-<link rel="stylesheet" href="css_files/footer_style.css">
-<link rel="stylesheet" href="css_files/css-navbar_files/navbar-search.css">
-
-
+    <link rel="stylesheet" href="css_files/nav_style.css">
+    <link rel="stylesheet" href="css_files/auth.css">
+    <link rel="stylesheet" href="css_files/css-navbar_files/profile-dropdown.css">
+    <link rel="stylesheet" href="css_files/home.css">
+    <link rel="stylesheet" href="css_files/footer_style.css">
+    <link rel="stylesheet" href="css_files/css-navbar_files/navbar-search.css">
 </head>
 
 <body>
@@ -20,8 +18,15 @@
 
     <main>
         <div class="index_content">
+
             <div class="ad-banner">
-                <img src="images/ad.png" alt="Advertisement banner">
+                <a id="adBannerLink" class="ad-banner-link" href="search.html?q=intel">
+                    <img
+                        id="adBannerImage"
+                        src="products_images/ad_banner/intel.png"
+                        alt="Intel products advertisement"
+                    >
+                </a>
             </div>
 
             <section class="product-section">
@@ -102,6 +107,6 @@
     <script type="module" src="js_files/js-navbar_files/navbar-search.js"></script>
 
     <script type="module" src="js_files/home.js"></script>
-    
+    <script type="module" src="js_files/ad-banner-slider.js"></script>
 </body>
 </html>

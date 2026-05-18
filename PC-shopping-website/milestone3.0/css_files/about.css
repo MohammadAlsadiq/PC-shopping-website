@@ -41,3 +41,60 @@
     line-height: 1.8;
     margin-bottom: 1.5%;
 }
+
+.about-box ul{
+    margin: 1% 0 1.5% 5%;
+    color: #444;
+    line-height: 1.8;
+}
+
+.about-box li{
+    font-size: 1.1rem;
+    margin-bottom: 0.8%;
+}
+
+/* expandable about blocks */
+.about-dropdown{
+    padding: 0;
+    overflow: hidden;
+}
+
+.about-dropdown summary{
+    padding: 3%;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2%;
+}
+
+.about-dropdown summary::-webkit-details-marker{
+    display: none;
+}
+
+.summary-title{
+    font-size: 1.9rem;
+    font-weight: bold;
+    color: #222;
+}
+
+.summary-icon{
+    font-size: 2rem;
+    font-weight: bold;
+    color: #222;
+    transition: transform 0.2s ease;
+}
+
+.about-dropdown[open] .summary-icon{
+    transform: rotate(45deg);
+}
+
+.about-dropdown-content{
+    padding: 0 3% 3% 3%;
+    border-top: 0.08rem solid #cfcfcf;
+}
+
+.about-dropdown-content p:first-child{
+    margin-top: 2%;
+}
