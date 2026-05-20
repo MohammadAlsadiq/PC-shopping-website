@@ -78,6 +78,22 @@
     padding: 1rem 0.5rem;
 }
 
+/* Product links */
+.product-link,
+.product-link:link,
+.product-link:visited,
+.product-link:hover,
+.product-link:active{
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    flex-shrink: 0;
+}
+
+.product-link *{
+    text-decoration: none;
+}
+
 /* Product card */
 .product-card{
     min-width: 13rem;
